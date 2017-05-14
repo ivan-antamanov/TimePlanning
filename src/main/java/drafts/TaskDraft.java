@@ -1,7 +1,7 @@
 package drafts;
 
 
-import entities.documents.subdocuments.Task;
+import entities.documents.subdocuments.impl.Task;
 import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -11,24 +11,35 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.awt.*;
 
 public class TaskDraft extends Application {
 
-    Task document;
+    private Task document;
 
 
     public void start(Stage primaryStage) throws Exception {
+        setDocument(getTask());
 
+        Scene scene = convertDocumentToNode();
+
+        primaryStage.setTitle("TimeApp");
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
+    private Task getTask(){
+        Task task = new Task();
+        task.setName("Implement GUI part");
+        task.setDescription("Need to implement uml-class diagram for GUI and starting code implementation");
+        return task;
+    }
 
     private Scene convertDocumentToNode() {
         Text nameLabel = new Text("Name");
         TextField nameText = new TextField(document.getName());
 
         Text mainDocLabel = new Text("Main Document");
-        TextField mainDocText = new TextField(document.getMainDocument().getName()); //todo check if document is present
+        TextField mainDocText = new TextField(); //todo check if document is present
 
         Text descriptionLabel = new Text("Description");
         TextField descriptionText = new TextField(document.getDescription());
@@ -50,9 +61,9 @@ public class TaskDraft extends Application {
         gridPane.add(mainDocLabel, 0, 1);
         gridPane.add(mainDocText, 1, 1);
 
-        gridPane.add(descriptionLabel, 1, 2);
+        gridPane.add(descriptionLabel, 0, 2);
 
-        gridPane.add(descriptionText, 2, 2);
+        gridPane.add(descriptionText, 1, 2);
 
         return new Scene(gridPane);
     }
@@ -64,5 +75,12 @@ public class TaskDraft extends Application {
 
     public void setDocument(Task document) {
         this.document = document;
+    }
+
+    public static void main(String[] args) {
+
+
+
+        launch(args);
     }
 }

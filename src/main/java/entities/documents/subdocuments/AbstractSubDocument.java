@@ -4,7 +4,7 @@ import entities.documents.AbstractDocument;
 import entities.documents.maindocuments.AbstractMainDocument;
 
 
-public abstract class Task extends AbstractDocument {
+public abstract class AbstractSubDocument extends AbstractDocument {
     private AbstractMainDocument mainDocument;
 //    private TimeTracker timeTracker todo realization
 //    private Attachment attachment todo realization
