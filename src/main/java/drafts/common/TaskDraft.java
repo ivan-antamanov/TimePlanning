@@ -1,4 +1,4 @@
-package drafts;
+package drafts.common;
 
 
 import entities.documents.subdocuments.impl.Task;

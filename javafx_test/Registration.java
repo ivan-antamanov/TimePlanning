@@ -87,7 +87,6 @@ public class Registration extends Application {
                 ("Hyderabad", "Chennai", "Delhi", "Mumbai", "Vishakhapatnam");
 
         //Label for register
-        Button buttonRegister = new Button("Register");
 
         //Creating a Grid Pane
         GridPane gridPane = new GridPane();

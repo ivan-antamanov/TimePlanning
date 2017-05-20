@@ -1,6 +1,9 @@
 package entities.documents;
 
 
+import java.time.Period;
+import java.util.Date;
+
 public class AbstractDocument implements Document {
 
     private String name;
@@ -11,6 +14,41 @@ public class AbstractDocument implements Document {
 //    private VisualMarker visualMarker todo Add Marker as Class
 //    private Report report todo Add Marker as report or make it as utils class
     private Boolean docWasChanged;
+    private Date createDate = new Date();
+    private Period period;
+
+    public AbstractDocument() {
+    }
+
+    public AbstractDocument(String name, String description, Period period) {
+        this(name, null, description, period);
+    }
+
+    public AbstractDocument(String name, Integer id, String description, Period period) {
+        this.name = name;
+        this.id = id;
+        this.description = description;
+        this.createDate = new Date();
+        this.period = period;
+    }
+
+
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
 
     public String getName() {
         return name;

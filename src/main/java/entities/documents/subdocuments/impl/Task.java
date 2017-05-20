@@ -2,8 +2,20 @@ package entities.documents.subdocuments.impl;
 
 import entities.documents.subdocuments.AbstractAction;
 
-/**
- * Created by iantaman on 10.05.2017.
- */
+import java.time.Period;
+import java.util.Date;
+
+
 public class Task extends AbstractAction {
+
+    public Task() {
+    }
+
+    public Task(String name, String description, Period period) {
+        super(name, description, period);
+    }
+
+    public Task(String name, Integer id, String description, Period period) {
+        super(name, id, description, period);
+    }
 }

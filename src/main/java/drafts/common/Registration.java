@@ -1,4 +1,4 @@
-package drafts;
+package drafts.common;
 
 
 import javafx.application.Application;
