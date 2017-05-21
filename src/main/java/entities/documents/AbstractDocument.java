@@ -1,13 +1,14 @@
 package entities.documents;
 
 
+import java.io.Serializable;
 import java.time.Period;
 import java.util.Date;
 
-public class AbstractDocument implements Document {
+public class AbstractDocument implements Document, Serializable {
 
     private String name;
-    private Integer id;
+    private Long id;
     private String description;
 //    private Logger logActivity; todo Add logger as Class
 //    private People people; todo Add people as Class
@@ -20,16 +21,20 @@ public class AbstractDocument implements Document {
     public AbstractDocument() {
     }
 
-    public AbstractDocument(String name, String description, Period period) {
-        this(name, null, description, period);
+    public AbstractDocument(Long id) {
+        this.id = id;
     }
 
-    public AbstractDocument(String name, Integer id, String description, Period period) {
+    public AbstractDocument(String name, String description) {
+        this(name, null, description);
+    }
+
+    public AbstractDocument(String name, Long id, String description) {
         this.name = name;
         this.id = id;
         this.description = description;
         this.createDate = new Date();
-        this.period = period;
+//        this.period = period;
     }
 
 
@@ -58,11 +63,11 @@ public class AbstractDocument implements Document {
         this.name = name;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

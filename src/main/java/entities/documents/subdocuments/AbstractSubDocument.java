@@ -13,12 +13,16 @@ public abstract class AbstractSubDocument extends AbstractDocument {
     public AbstractSubDocument() {
     }
 
-    public AbstractSubDocument(String name, String description, Period period) {
-        super(name, description, period);
+    public AbstractSubDocument(Long id) {
+        super(id);
     }
 
-    public AbstractSubDocument(String name, Integer id, String description, Period period) {
-        super(name, id, description, period);
+    public AbstractSubDocument(String name, String description) {
+        super(name, description);
+    }
+
+    public AbstractSubDocument(String name, Long id, String description) {
+        super(name, id, description);
     }
 //    private TimeTracker timeTracker todo realization
 //    private Attachment attachment todo realization

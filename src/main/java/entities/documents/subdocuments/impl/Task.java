@@ -11,11 +11,15 @@ public class Task extends AbstractAction {
     public Task() {
     }
 
-    public Task(String name, String description, Period period) {
-        super(name, description, period);
+    public Task(Long id) {
+        super(id);
     }
 
-    public Task(String name, Integer id, String description, Period period) {
-        super(name, id, description, period);
+    public Task(String name, String description) {
+        super(name, description);
+    }
+
+    public Task(String name, Long id, String description) {
+        super(name, id, description);
     }
 }

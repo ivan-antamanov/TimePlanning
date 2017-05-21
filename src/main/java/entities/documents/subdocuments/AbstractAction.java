@@ -18,12 +18,16 @@ public abstract class AbstractAction extends AbstractSubDocument {
     public AbstractAction() {
     }
 
-    public AbstractAction(String name, String description, Period period) {
-        super(name, description, period);
+    public AbstractAction(Long id) {
+        super(id);
     }
 
-    public AbstractAction(String name, Integer id, String description, Period period) {
-        super(name, id, description, period);
+    public AbstractAction(String name, String description) {
+        super(name, description);
+    }
+
+    public AbstractAction(String name, Long id, String description) {
+        super(name, id, description);
     }
 
 

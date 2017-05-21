@@ -2,103 +2,67 @@ package drafts.project;
 
 
 import entities.documents.subdocuments.AbstractAction;
-import javafx.geometry.Orientation;
+import entities.documents.subdocuments.impl.Task;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
-import static gui.auxiliary.LabelFields.*;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 
 
 public class TaskController {
 
     private Scene taskScene;
     private AbstractAction action;
-    private ActionLoader actionLoader;
-    //    todo LayoutController
+    private SaveLoader saveLoader = new SaveLoader();
+    private TaskLayoutController taskLayoutController;
     //todo AbstractTaskController
-    private TextField taskName;
-    private TextField taskStatus;
-    private TextField taskPriority;
-    private TextField taskDescription;
-    private TextField taskCreationDate;
-    private TextField taskPeriod;
-    private TextField linkedTask;
-    private TextField mainDocument;
 
 
-    public TaskController(AbstractAction action) {
-        this.action = action;
-        setTaskNodes();
+    private Task getTaskViewById(int taskId) {
+        try {
+            try {
+                return saveLoader.findTaskById(taskId);
+            } catch (IOException e) {
+                System.out.println("Task with Id: " + taskId + " was not found");
+            } catch (ClassNotFoundException e) {
+                System.out.println("Not correct type for Id: " + taskId);
+            }
+        } catch (ParseException e) {
+            System.out.println("task was not found");
+        }
+        return null;
     }
 
-    private void setTaskNodes() {
-        taskName = new TextField(action.getName());
-        taskStatus = new TextField(action.getStatus().name());
-        taskPriority = new TextField(action.getPriority().name());
-        taskDescription = new TextField(action.getDescription());
-        taskCreationDate = new TextField(action.getCreateDate().toString());
-        taskPeriod = new TextField(action.getPeriod().toString());
-        //todo rebuild as List
-        linkedTask = new TextField(action.getLinkedSubDocs().get(0).getName());
-        mainDocument = new TextField(action.getMainDocument().getName());
+    public Parent returnTaskParentById(int taskId) {
+        Task task = getTaskViewById(taskId);
+        taskLayoutController = new TaskLayoutController(task);
+        return taskLayoutController.returnTaskParent(task);
     }
 
-    public Parent returnTaskParent() {
-        return getGeneralPane();
+    public Parent returnNewTaskParent(){
+        Date date = new Date();
+        long id = date.getTime();
+
+        taskLayoutController = new TaskLayoutController();
+        return taskLayoutController.returnNewTaskParent();
     }
 
-    private Pane getGeneralPane() {
-        BorderPane generalPane = new BorderPane();
-        generalPane.setTop(getTopPane());
-        generalPane.setLeft(getLeftPane());
-        generalPane.setRight(getRightPane());
-        generalPane.setBottom(getBottomPane());
-        return generalPane;
+    public void saveTask(Task task){
+        try {
+            System.out.println("Try to save task with Id:" +task.getId());
+            saveLoader.saveTask(task);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private Pane getTopPane() {
-        FlowPane topPane = new FlowPane();
-        topPane.setOrientation(Orientation.HORIZONTAL);
-        topPane.getChildren().add(mainDocument);
-        topPane.getChildren().add(PREFIX);
-        topPane.getChildren().add(taskName);
-        return topPane;
-    }
+    //        private AnchorPane addAnchorPane(Pane pane){
+//        AnchorPane anchorPane = new AnchorPane();
+//        anchorPane.getChildren().add(pane);
+//        return anchorPane;
+//    }
 
-    private Pane getLeftPane() {
-        GridPane leftPane = new GridPane();
-        leftPane.add(NAME_LABEL, 0, 0);
-        leftPane.add(taskName, 1, 0);
-        leftPane.add(PRIORITY_LABEL, 0, 1);
-        leftPane.add(taskPriority, 1, 1);
-        leftPane.add(STATUS_LABEL, 0, 2);
-        leftPane.add(taskStatus, 1, 2);
-        leftPane.add(PERIOD_LABEL, 0, 3);
-        leftPane.add(taskPeriod, 1, 3);
-        leftPane.add(CREATION_DATE_LABEL, 0, 4);
-        leftPane.add(taskCreationDate, 1, 4);
-        return leftPane;
-    }
-
-    private Pane getRightPane() {
-        FlowPane rightPane = new FlowPane();
-        rightPane.setOrientation(Orientation.VERTICAL);
-        rightPane.getChildren().add(DESCRIPTION_LABEL);
-        rightPane.getChildren().add(taskDescription);
-        return rightPane;
-    }
-
-    private Pane getBottomPane() {
-        FlowPane bottomPane = new FlowPane();
-        bottomPane.setOrientation(Orientation.VERTICAL);
-        bottomPane.getChildren().add(LINKED_TASK_LABEL);
-        bottomPane.getChildren().add(linkedTask);
-        return bottomPane;
-    }
 
 }
