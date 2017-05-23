@@ -1,25 +1,19 @@
 package drafts.project;
 
-import entities.documents.auxiliary.Priority;
-import entities.documents.auxiliary.Status;
 import entities.documents.maindocuments.AbstractMainDocument;
 import entities.documents.maindocuments.impl.Project;
 import entities.documents.subdocuments.AbstractAction;
 import entities.documents.subdocuments.impl.Task;
 
 import java.io.*;
-import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
 
 
-public class SaveLoader {
+public class LocalSession {
 
     private AbstractAction action;
     static String dateFormat = "yyyy-MM-dd";

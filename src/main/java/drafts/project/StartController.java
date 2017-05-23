@@ -40,8 +40,6 @@ public class StartController {
         }
     };
 
-
-
     public Scene getStartScene() {
         startScene = new Scene(getParent());
         return startScene;

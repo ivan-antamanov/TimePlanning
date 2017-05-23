@@ -13,9 +13,8 @@ import java.util.Date;
 
 public class TaskController {
 
-    private Scene taskScene;
-    private AbstractAction action;
-    private SaveLoader saveLoader = new SaveLoader();
+
+    private LocalSession localSession = new LocalSession();
     private TaskLayoutController taskLayoutController;
     //todo AbstractTaskController
 
@@ -23,7 +22,7 @@ public class TaskController {
     private Task getTaskViewById(int taskId) {
         try {
             try {
-                return saveLoader.findTaskById(taskId);
+                return localSession.findTaskById(taskId);
             } catch (IOException e) {
                 System.out.println("Task with Id: " + taskId + " was not found");
             } catch (ClassNotFoundException e) {
@@ -52,17 +51,11 @@ public class TaskController {
     public void saveTask(Task task){
         try {
             System.out.println("Try to save task with Id:" +task.getId());
-            saveLoader.saveTask(task);
+            localSession.saveTask(task);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    //        private AnchorPane addAnchorPane(Pane pane){
-//        AnchorPane anchorPane = new AnchorPane();
-//        anchorPane.getChildren().add(pane);
-//        return anchorPane;
-//    }
 
 
 }

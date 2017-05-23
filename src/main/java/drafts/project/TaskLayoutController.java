@@ -15,7 +15,6 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import entities.documents.auxiliary.Priority;
 import org.apache.commons.lang.StringUtils;
@@ -47,7 +46,7 @@ public class TaskLayoutController {
     private EventHandler saveEvent = new EventHandler() {
         @Override
         public void handle(Event event) {
-            System.out.println("Try to save Task with Id: "+ taskId.getText());
+            System.out.println("Try to save Task with Id: " + taskId.getText());
             taskController = new TaskController();
             Task task = getTaskFromNode();
             taskController.saveTask(task);
@@ -70,7 +69,7 @@ public class TaskLayoutController {
         return getGeneralPane();
     }
 
-    private void showSuccessDialog(){
+    private void showSuccessDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -106,30 +105,31 @@ public class TaskLayoutController {
 
         Pane topPane = getTopPane();
         Pane leftPane = getLeftPane();
-        Pane rightPane = getRightPane();
+        Pane centerPane = getCenterPane();
         Pane bottomPane = getBottomPane();
 
-        AnchorPane.setLeftAnchor(leftPane, 6.0);
-//        generalPane.setCenter(addAnchorPane(leftPane));
         generalPane.setPrefWidth(750);
         generalPane.autosize();
 
         generalPane.setTop(topPane);
         generalPane.setLeft(leftPane);
-        generalPane.setRight(rightPane);
+        generalPane.setCenter(centerPane);
         generalPane.setBottom(bottomPane);
         return generalPane;
     }
 
-    private Pane getTopPane() { //fixme one method for Exist task, one for new
-        FlowPane topPane = new FlowPane();
-//        Text projectAddress = new Text(mainDocument.getText());
+    private Text getAddressTask(TextField taskName) {
         Text taskAddress = null;
         if (StringUtils.isBlank(taskName.getText())) {
-            taskAddress = new Text("NO Name");
-        } else {
-            taskAddress = new Text(taskPeriod.getText());
+            return taskAddress = new Text("NO Name");
         }
+        return taskAddress = new Text(taskName.getText());
+
+    }
+
+    private Pane getTopPane() { //fixme one method for Exist task, one for new
+        FlowPane topPane = new FlowPane();
+        Text taskAddress = getAddressTask(taskName);
 
 //        FontUtils.setTopLinkFont(projectAddress);
         FontUtils.setTopLinkFont(taskAddress);
@@ -138,7 +138,7 @@ public class TaskLayoutController {
         topPane.setOrientation(Orientation.HORIZONTAL);
 //        topPane.getChildren().add(projectAddress);
         topPane.getChildren().add(PREFIX);
-        topPane.getChildren().add(new Text("ololo")); //fixme ??
+        topPane.getChildren().add(taskAddress); //fixme ??
         return topPane;
     }
 
@@ -161,12 +161,12 @@ public class TaskLayoutController {
         leftPane.add(CREATION_DATE_LABEL, 0, 3);
         leftPane.add(taskCreationDate, 1, 3);
         leftPane.add(new Text("ID: "), 0, 4);
-        leftPane.add(taskId, 1 , 4);
+        leftPane.add(taskId, 1, 4);
 
         return leftPane;
     }
 
-    private Pane getRightPane() {
+    private Pane getCenterPane() {
         FlowPane rightPane = new FlowPane();
         rightPane.setMinSize(400, 200);
         rightPane.setHgap(10);
