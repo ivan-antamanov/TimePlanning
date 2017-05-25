@@ -1,7 +1,9 @@
-package drafts.project;
+package gui.converters;
 
 
-import entities.documents.auxiliary.*;
+import drafts.project.TaskController;
+import entities.documents.auxiliary.Priority;
+import entities.documents.auxiliary.Status;
 import entities.documents.subdocuments.AbstractAction;
 import entities.documents.subdocuments.impl.Task;
 import gui.auxiliary.BorderUtils;
@@ -14,17 +16,16 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import entities.documents.auxiliary.Priority;
 import org.apache.commons.lang.StringUtils;
 
 import static gui.auxiliary.LabelFields.*;
-import static gui.auxiliary.LabelFields.LINKED_TASK_LABEL;
 
-public class TaskLayoutController {
-
-    TaskController taskController;
+public class ParentBuilder {
 
     private TextField taskName = new TextField();
     private ChoiceBox<String> priorityChoiceBox = new ChoiceBox<>();
@@ -43,26 +44,17 @@ public class TaskLayoutController {
         statusChoiceBox.getItems().addAll(Status.getAllNames());
     }
 
-    private EventHandler saveEvent = new EventHandler() {
-        @Override
-        public void handle(Event event) {
-            System.out.println("Try to save Task with Id: " + taskId.getText());
-            taskController = new TaskController();
-            Task task = getTaskFromNode();
-            taskController.saveTask(task);
-            showSuccessDialog();
-        }
-    };
 
-    public TaskLayoutController(AbstractAction action) {
+
+    public ParentBuilder(AbstractAction action) {
         setTaskNodes(action);
     }
 
-    public TaskLayoutController() {
+    public ParentBuilder() {
     }
 
     public Parent returnTaskParent(AbstractAction action) {
-        return getGeneralPane();
+        return null;
     }
 
     public Parent returnNewTaskParent() {
@@ -99,6 +91,8 @@ public class TaskLayoutController {
         return task;
     }
 
+
+
     private Pane getGeneralPane() {
 
         BorderPane generalPane = new BorderPane();
@@ -108,7 +102,7 @@ public class TaskLayoutController {
         Pane centerPane = getCenterPane();
         Pane bottomPane = getBottomPane();
 
-        generalPane.setPrefWidth(800);
+        generalPane.setPrefWidth(750);
         generalPane.autosize();
 
         generalPane.setTop(topPane);
@@ -178,7 +172,7 @@ public class TaskLayoutController {
 
         centerPane.getChildren().add(DESCRIPTION_LABEL);
         taskDescription.setPrefHeight(170);
-        taskDescription.setPrefWidth(400);
+        taskDescription.setPrefWidth(centerPane.getWidth());
         centerPane.getChildren().add(taskDescription);
         return centerPane;
     }
@@ -190,8 +184,9 @@ public class TaskLayoutController {
         bottomPane.setOrientation(Orientation.VERTICAL);
         bottomPane.getChildren().add(LINKED_TASK_LABEL);
         bottomPane.getChildren().add(linkedTask);
-        saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, saveEvent);
+//        saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, saveEvent);
         bottomPane.getChildren().add(saveButton);
         return bottomPane;
     }
+
 }
