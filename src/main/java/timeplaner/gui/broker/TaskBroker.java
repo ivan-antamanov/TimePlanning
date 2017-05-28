@@ -118,14 +118,14 @@ public class TaskBroker {
     }
 
     private Button customizeSaveButton(Button saveButton) {
-        saveButton.setAlignment(Pos.BOTTOM_RIGHT);
+        saveButton.setAlignment(Pos.TOP_CENTER);
         saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, saveEvent);
         return saveButton;
     }
 
     private TextArea customizeDescription(TextArea taskDescription) {
-        taskDescription.setPrefHeight(170);
-        taskDescription.setPrefWidth(400);
+        taskDescription.setMinHeight(170);
+        taskDescription.setMinWidth(400);
         return taskDescription;
     }
 

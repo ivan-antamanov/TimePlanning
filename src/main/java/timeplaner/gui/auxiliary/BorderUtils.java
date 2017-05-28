@@ -11,4 +11,10 @@ public class BorderUtils {
                 Color.AQUAMARINE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT);
         return new Border(borderStroke);
     }
+
+    public static Border getOtherTaskBorder() {
+        BorderStroke borderStroke = new BorderStroke(
+                Color.GREEN, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT);
+        return new Border(borderStroke);
+    }
 }

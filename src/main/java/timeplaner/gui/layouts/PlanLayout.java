@@ -32,8 +32,8 @@ public class PlanLayout {
         FlowPane startPane = new FlowPane();
         startPane.setOrientation(Orientation.HORIZONTAL);
         startPane.setAlignment(Pos.CENTER);
-        startPane.setMinSize(700,600);
-        startPane.setMaxSize(820,820);
+        startPane.setMinSize(700,400);
+        startPane.setMaxSize(820,420);
         return startPane;
     }
 

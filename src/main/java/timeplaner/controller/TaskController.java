@@ -40,13 +40,13 @@ public class TaskController {
 
     }
 
-    public Parent returnNewTaskParent(){
-        Date date = new Date();
-        long id = date.getTime();
-
-        taskLayout = new TaskLayout();
-        return taskLayout.returnNewTaskParent();
-    }
+//    public Parent returnNewTaskParent(){
+//        Date date = new Date();
+//        long id = date.getTime();
+//
+//        taskLayout = new TaskLayout();
+//        return taskLayout.returnNewTaskParent();
+//    }
 
     public void saveTask(Task task){
         try {

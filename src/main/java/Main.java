@@ -14,8 +14,8 @@ public class Main extends Application {
         PlanController planController = new PlanController(session);
         PlanBroker planBroker = new PlanBroker(planController);
         PlanLayout planLayout = new PlanLayout(planBroker);
-        GeneralScene generalScene = new GeneralScene(planLayout.returnButtonPlanParent(planBroker.getControlBottom()));
-        primaryStage.setScene(generalScene.getScene());
+        planController.setGeneralScene(new GeneralScene(planLayout.returnButtonPlanParent(planBroker.getControlBottom())));
+        primaryStage.setScene(planController.getGeneralScene().getScene());
         primaryStage.show();
 //        primaryStage.setResizable(false);
     }

@@ -38,9 +38,8 @@ public class PlanBroker {
             TaskBroker taskBroker = new TaskBroker(taskController);
             TaskLayout taskLayout = new TaskLayout(taskBroker);
             taskBroker.updateTaskNodes(task);
-            taskLayout.returnNewTaskParent()
-            updateScene(task);
-            getMainScene();
+            Parent parentTask = taskLayout.returnNewTaskParent();
+            updateScene(parentTask);
     }
     };
 
@@ -48,14 +47,17 @@ public class PlanBroker {
         @Override
         public void handle(Event event) {
             System.out.println("Button \"Create new Task\" was pressed");
-            Parent taskParent = getTaskNewTaskParent();
-            updateScene(taskParent);
-            getMainScene();
+            TaskController taskController = new TaskController(planController.getLocalSession());
+            TaskBroker taskBroker = new TaskBroker(taskController);
+            TaskLayout taskLayout = new TaskLayout(taskBroker);
+            Parent parentTask = taskLayout.returnNewTaskParent();
+            updateScene(parentTask);;
         }
     };
 
-    private Parent updateScene(Task task){
-
+    private Parent updateScene(Parent parentTask){
+        planController.getGeneralScene().setRoot(parentTask);
+        return parentTask;
     }
 
     public List<Control> getControlBottom() { //fixme there should be only buttons

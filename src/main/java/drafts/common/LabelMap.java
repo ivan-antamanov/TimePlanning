@@ -1,4 +1,4 @@
-package drafts.project;
+package drafts.common;
 
 import timeplaner.gui.auxiliary.LabelFields;
 

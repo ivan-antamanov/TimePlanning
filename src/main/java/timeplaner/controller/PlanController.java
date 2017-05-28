@@ -21,6 +21,7 @@ import java.text.ParseException;
 
 public class PlanController {
 
+    private GeneralScene generalScene;
     private LocalSession localSession;
 
     public PlanController(LocalSession localSession) {
@@ -29,6 +30,14 @@ public class PlanController {
 
     public LocalSession getLocalSession() {
         return localSession;
+    }
+
+    public GeneralScene getGeneralScene() {
+        return generalScene;
+    }
+
+    public void setGeneralScene(GeneralScene generalScene) {
+        this.generalScene = generalScene;
     }
 
     private MenuBar getMenu(){ //todo rebuild
