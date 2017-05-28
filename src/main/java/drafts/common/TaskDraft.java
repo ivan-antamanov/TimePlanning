@@ -1,7 +1,7 @@
 package drafts.common;
 
 
-import entities.documents.subdocuments.impl.Task;
+import timeplaner.documents.subdocuments.impl.Task;
 import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
