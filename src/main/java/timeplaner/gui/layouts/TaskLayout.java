@@ -1,7 +1,6 @@
 package timeplaner.gui.layouts;
 
 
-import timeplaner.documents.subdocuments.AbstractAction;
 import timeplaner.gui.auxiliary.BorderUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -21,25 +20,22 @@ import static timeplaner.gui.auxiliary.LabelFields.RIGHT_SLASH;
 
 public class TaskLayout {
 
-    TaskBroker taskBroker;
+//    TaskBroker taskBroker;
 
-    public TaskLayout(TaskBroker taskBroker) {
-        this.taskBroker = taskBroker;
-    }
 
 //    public Parent returnTaskParent(AbstractAction action) {
 //        return getGeneralPane();
 //    }
 
-    public Parent returnNewTaskParent() {
-        return getTaskPane();
-    }
+//    public Parent returnNewTaskParent() {
+//        return getTaskPane();
+//    }
 
 
-    private Pane getTaskPane(){
+    public Pane getTaskPane(TaskBroker taskBroker){
         VBox mainPane = (VBox)customizeTaskPane();
 
-        mainPane.getChildren().add(getGeneralPane());
+        mainPane.getChildren().add(getGeneralPane(taskBroker));
         mainPane.getChildren().add(getButtonBottom(taskBroker.getButtonsBottom()));
         return mainPane;
     }
@@ -49,7 +45,7 @@ public class TaskLayout {
         return mainPane;
     }
 
-    public Pane getGeneralPane() {
+    private Pane getGeneralPane(TaskBroker taskBroker) {
         BorderPane generalPane = new BorderPane();
         Pane topPane = getTopPane(taskBroker.getHyperLinkTop());
         Pane leftPane = getLeftPane(taskBroker.getLabelAndControlMapLeft());
@@ -80,7 +76,7 @@ public class TaskLayout {
     }
 
     private Pane getLeftPane(Map<Text, Control> textControlMap) { //todo Another Class
-        GridPane leftPane = customizeAndCreateLeftGridPane();
+        GridPane leftPane = customizeAndCreateLeftPane();
         int firstColumn = 0;
         int secondColumn = 1;
         for (Map.Entry<Text, Control> entry : textControlMap.entrySet()) {
@@ -94,7 +90,7 @@ public class TaskLayout {
         return leftPane;
     }
 
-    private GridPane customizeAndCreateLeftGridPane() {
+    private GridPane customizeAndCreateLeftPane() {
         GridPane leftPane = new GridPane();
         leftPane.setPadding(new Insets(5, 5, 5, 5));
         leftPane.setVgap(10);
@@ -103,13 +99,13 @@ public class TaskLayout {
         return leftPane;
     }
 
-    private Pane getCenterPane(Map<Text, Control> textControlMap) { //todo Another Class
+    private Pane getCenterPane(Map<Text, Control> textControlMap) {
         FlowPane centerPane = (FlowPane) customizeAndCreateCenterPane();
         textControlMap.forEach((text, control) -> centerPane.getChildren().addAll(text, control));
         return centerPane;
     }
 
-    private Pane customizeAndCreateCenterPane(){
+    private FlowPane customizeAndCreateCenterPane(){
         FlowPane rightPane = new FlowPane();
         rightPane.setMinSize(400, 200);
 //        rightPane.setMaxSize(400,300);
@@ -135,7 +131,7 @@ public class TaskLayout {
     }
 
 
-    private Pane getBottomPane(Map<Text, Control> textControlMap) { //todo Another Class
+    private Pane getBottomPane(Map<Text, Control> textControlMap) {
         FlowPane bottomPane = (FlowPane) customizeAndCreateBottomPane();
         textControlMap.forEach(((text, control) -> bottomPane.getChildren().addAll(text, control)));
         return bottomPane;

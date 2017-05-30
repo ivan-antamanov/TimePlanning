@@ -21,49 +21,45 @@ import java.text.ParseException;
 
 public class PlanController {
 
-    private GeneralScene generalScene;
+//    private GeneralScene generalScene;
     private LocalSession localSession;
 
     public PlanController(LocalSession localSession) {
         this.localSession = localSession;
     }
 
-    public LocalSession getLocalSession() {
-        return localSession;
+    private Task getTaskById(int taskId) {
+        try {
+            try {
+                return localSession.findTaskById(taskId);
+            } catch (IOException e) {
+                System.out.println("Task with Id: " + taskId + " was not found");
+            } catch (ClassNotFoundException e) {
+                System.out.println("Not correct type for Id: " + taskId);
+            }
+        } catch (ParseException e) {
+            System.out.println("task was not found");
+        }
+        return null;
     }
 
-    public GeneralScene getGeneralScene() {
-        return generalScene;
+    public Task returnTaskById(int taskId) {
+        return getTaskById(taskId);
+
     }
 
-    public void setGeneralScene(GeneralScene generalScene) {
-        this.generalScene = generalScene;
-    }
+//    public LocalSession getLocalSession() {
+//        return localSession;
+//    }
 
-    private MenuBar getMenu(){ //todo rebuild
-        MenuBar menuBar = new MenuBar();
+//    public GeneralScene getGeneralScene() {
+//        return generalScene;
+//    }
 
-        Menu menuFile = new Menu("File");
+//    public void setGeneralScene(GeneralScene generalScene) {
+//        this.generalScene = generalScene;
+//    }
 
-        MenuItem saveItem = new MenuItem("Save");
-        MenuItem exitItem = new MenuItem("Exit");
-        menuFile.getItems().addAll(saveItem,exitItem);
-
-        Menu menuOptions = new Menu("Option");
-        MenuItem badSightedItem = new MenuItem("Bad-Sighted version");
-
-        menuOptions.getItems().addAll(badSightedItem);
-
-        menuBar.getMenus().addAll(menuFile, menuOptions);
-        return menuBar;
-    }
-
-    private Pane getHigherPanel(){
-        VBox menuPane = new VBox(getMenu());
-        menuPane.setVisible(true);
-        menuPane.setAlignment(Pos.TOP_CENTER);
-        return menuPane;
-    }
 
 //    public GeneralScene updateScene(Parent parent){
 //        mainScene.setRoot(getHigherPanel());
@@ -71,8 +67,6 @@ public class PlanController {
 //        return mainScene;
 //
 //    }
-
-
 
 //    private Task getTaskById(int taskId) {
 //        try {

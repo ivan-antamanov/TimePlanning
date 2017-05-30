@@ -13,11 +13,11 @@ import java.util.List;
 
 public class PlanLayout {
 
-    PlanBroker planBroker;
-
-    public PlanLayout(PlanBroker planBroker) {
-        this.planBroker = planBroker;
-    }
+//    PlanBroker planBroker;
+//
+//    public PlanLayout(PlanBroker planBroker) {
+//        this.planBroker = planBroker;
+//    }
 
 
 

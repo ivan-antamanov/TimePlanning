@@ -20,25 +20,6 @@ public class TaskController {
         this.localSession = localSession;
     }
 
-    private Task getTaskById(int taskId) {
-        try {
-            try {
-                return localSession.findTaskById(taskId);
-            } catch (IOException e) {
-                System.out.println("Task with Id: " + taskId + " was not found");
-            } catch (ClassNotFoundException e) {
-                System.out.println("Not correct type for Id: " + taskId);
-            }
-        } catch (ParseException e) {
-            System.out.println("task was not found");
-        }
-        return null;
-    }
-
-    public Task returnTaskById(int taskId) {
-        return getTaskById(taskId);
-
-    }
 
 //    public Parent returnNewTaskParent(){
 //        Date date = new Date();

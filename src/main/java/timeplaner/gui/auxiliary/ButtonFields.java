@@ -1,7 +1,7 @@
 package timeplaner.gui.auxiliary;
 
 
-import java.awt.*;
+import javafx.scene.control.Button;
 
 public enum ButtonFields {
 

@@ -14,6 +14,9 @@ import javafx.scene.text.Text;
 import org.apache.commons.lang.StringUtils;
 import timeplaner.plugin.LocalSession;
 
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -21,7 +24,6 @@ import static timeplaner.gui.auxiliary.LabelFields.*;
 
 public class TaskBroker {
 
-    TaskController taskController;
 
     private TextField taskName = new TextField();
     private ChoiceBox<String> priorityChoiceBox = new ChoiceBox<>();
@@ -33,36 +35,34 @@ public class TaskBroker {
     private TextField linkedTask = new TextField();
     private TextField mainDocument = new TextField();
 
+    private Button saveButton = new Button("Save Task");
+
     {
         priorityChoiceBox.getItems().addAll(Priority.getAllNames());
         statusChoiceBox.getItems().addAll(Status.getAllNames());
     }
 
-    private Button saveButton = new Button("Save Task");
 
-    public TaskBroker(TaskController taskController) {
-        this.taskController = taskController;
-    }
-
-    private EventHandler saveEvent = new EventHandler() {
-        @Override
-        public void handle(Event event) {
-            System.out.println("Try to save Task with Id: " + taskId.getText());
-            taskController = new TaskController(new LocalSession());
-            Task task = getTaskFromNode();
-            taskController.saveTask(task);
-            showSuccessDialog();
-        }
-    };
-
-    public void updateTaskNodes(AbstractAction action) {
+    public TaskBroker updateTaskView(AbstractAction action) { //fixme: not create new object
         taskName = new TextField(action.getName());
         priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
         statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
         taskDescription = new TextArea(action.getDescription());
         taskCreationDate = new TextField(action.getCreateDate().toString());
         taskId = new TextField(action.getId().toString());
+        return this;
     }
+
+    public TaskBroker newTaskView() {
+        taskName.clear();
+//        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
+//        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
+        taskDescription.clear();
+        taskCreationDate = new TextField(LocalDate.now().toString());
+        taskId.clear(); //todo generate unique id;
+        return this;
+    }
+
 
     public List<Hyperlink> getHyperLinkTop() {
         Predicate<String> isBlank = StringUtils::isBlank;
@@ -119,9 +119,14 @@ public class TaskBroker {
 
     private Button customizeSaveButton(Button saveButton) {
         saveButton.setAlignment(Pos.TOP_CENTER);
-        saveButton.addEventFilter(MouseEvent.MOUSE_CLICKED, saveEvent);
+//        saveButton.addEventFilter();
         return saveButton;
     }
+
+    public void addSaveEvent(EventHandler saveEvent){
+        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, saveEvent);
+    }
+
 
     private TextArea customizeDescription(TextArea taskDescription) {
         taskDescription.setMinHeight(170);
@@ -130,7 +135,7 @@ public class TaskBroker {
     }
 
 
-    private Task getTaskFromNode() {
+    public Task getTaskFromNode() {
         Task task = new Task(taskName.getText(), Long.parseLong(taskId.getText()), taskDescription.getText());
         Priority priority = Priority.getByName(priorityChoiceBox.getValue());
         Status status = Status.getByName(statusChoiceBox.getValue());
@@ -139,7 +144,7 @@ public class TaskBroker {
         return task;
     }
 
-    private void showSuccessDialog() {
+    public void showSuccessDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
