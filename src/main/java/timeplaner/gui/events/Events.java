@@ -3,7 +3,7 @@ package timeplaner.gui.events;
 
 public class Events {
 //
-//    private EventHandler saveEvent = new EventHandler() {
+//    private ProjectEventHandler saveEvent = new ProjectEventHandler() {
 //        @Override
 //        public void handle(Event event) {
 //            Object button = event.getSource();

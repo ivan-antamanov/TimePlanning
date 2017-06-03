@@ -125,7 +125,7 @@ public class EventHandlersExample extends Application {
         scene.setCamera(camera);
 
         //Setting title to the Stage
-        stage.setTitle("Event Handlers Example");
+        stage.setTitle("ProjectEvent Handlers Example");
 
         //Adding scene to the stage
         stage.setScene(scene);

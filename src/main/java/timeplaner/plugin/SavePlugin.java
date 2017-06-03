@@ -1,6 +1,7 @@
 package timeplaner.plugin;
 
 
+import timeplaner.dao.AbstractSession;
 import timeplaner.documents.AbstractDocument;
 
 public abstract class SavePlugin implements Plugin {

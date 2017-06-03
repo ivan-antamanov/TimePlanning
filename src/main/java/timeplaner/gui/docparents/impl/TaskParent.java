@@ -1,4 +1,4 @@
-package timeplaner.gui.layouts;
+package timeplaner.gui.docparents.impl;
 
 
 import timeplaner.gui.auxiliary.BorderUtils;
@@ -18,26 +18,15 @@ import java.util.Map;
 
 import static timeplaner.gui.auxiliary.LabelFields.RIGHT_SLASH;
 
-public class TaskLayout {
-
-//    TaskBroker taskBroker;
+public class TaskParent extends Parent {
 
 
-//    public Parent returnTaskParent(AbstractAction action) {
-//        return getGeneralPane();
-//    }
-
-//    public Parent returnNewTaskParent() {
-//        return getTaskPane();
-//    }
-
-
-    public Pane getTaskPane(TaskBroker taskBroker){
+    public TaskParent getTaskParent(TaskBroker taskBroker){
         VBox mainPane = (VBox)customizeTaskPane();
-
         mainPane.getChildren().add(getGeneralPane(taskBroker));
         mainPane.getChildren().add(getButtonBottom(taskBroker.getButtonsBottom()));
-        return mainPane;
+        this.getChildren().addAll(mainPane);
+        return this;
     }
 
     private Pane customizeTaskPane(){

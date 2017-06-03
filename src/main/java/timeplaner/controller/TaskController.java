@@ -1,14 +1,11 @@
 package timeplaner.controller;
 
 
-import timeplaner.gui.layouts.TaskLayout;
-import timeplaner.plugin.LocalSession;
+import timeplaner.dao.LocalSession;
 import timeplaner.documents.subdocuments.impl.Task;
-import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.Date;
 
 
 public class TaskController {
@@ -25,9 +22,31 @@ public class TaskController {
 //        Date date = new Date();
 //        long id = date.getTime();
 //
-//        taskLayout = new TaskLayout();
+//        taskLayout = new TaskProvider();
 //        return taskLayout.returnNewTaskParent();
 //    }
+
+
+    private Task getTaskById(Long taskId) {
+        try {
+            try {
+                return localSession.findTaskById(taskId);
+            } catch (IOException e) {
+                System.out.println("Task with Id: " + taskId + " was not found");
+            } catch (ClassNotFoundException e) {
+                System.out.println("Not correct type for Id: " + taskId);
+            }
+        } catch (ParseException e) {
+            System.out.println("task was not found");
+        }
+        return null;
+    }
+
+    public Task returnTaskById(Long taskId) {
+        return getTaskById(taskId);
+
+    }
+
 
     public void saveTask(Task task){
         try {

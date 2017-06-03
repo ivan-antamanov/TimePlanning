@@ -2,65 +2,28 @@ package timeplaner.gui;
 
 
 import javafx.beans.NamedArg;
-import javafx.geometry.Pos;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import timeplaner.gui.events.ProjectEventHandler;
+import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 
 public class GeneralScene extends Scene {
 
 
+    private GeneralScene generalScene = this;
     private Parent parent;
-
-    private List<Parent> parents;
 
     public GeneralScene(@NamedArg("root") Parent root) {
         super(root);
     }
 
-    public void setParentList(Parent... elements) {
-        ((Pane) this.getRoot()).getChildren().addAll(elements);
+    public ObservableList<Node> getParents() {
+        return ((Pane) generalScene.getRoot()).getChildren();
     }
 
-    public List<Parent> getParents() {
-        return parents;
-    }
-
-    public void setParents(List<Parent> parents) {
-        this.parents = parents;
-    }
-
-    private MenuBar getMenu() { //todo rebuild
-        MenuBar menuBar = new MenuBar();
-
-        Menu menuFile = new Menu("File");
-
-        MenuItem saveItem = new MenuItem("Save");
-        MenuItem exitItem = new MenuItem("Exit");
-        menuFile.getItems().addAll(saveItem, exitItem);
-
-        Menu menuOptions = new Menu("Option");
-        MenuItem badSightedItem = new MenuItem("Bad-Sighted version");
-
-        menuOptions.getItems().addAll(badSightedItem);
-
-        menuBar.getMenus().addAll(menuFile, menuOptions);
-        return menuBar;
-    }
-
-    private Pane getHigherPanel() {
-        VBox menuPane = new VBox(getMenu());
-        menuPane.setVisible(true);
-        menuPane.setAlignment(Pos.TOP_CENTER);
-        return menuPane;
-    }
+//    ProjectEventHandler<ChangeChildrenVisibilityEvent> changeVisibilityHandler =
 
 }

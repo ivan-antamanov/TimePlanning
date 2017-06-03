@@ -1,40 +1,32 @@
 package timeplaner.gui.broker;
 
 
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import timeplaner.controller.PlanController;
-import timeplaner.controller.TaskController;
-import timeplaner.documents.subdocuments.impl.Task;
-import timeplaner.gui.layouts.TaskLayout;
+import timeplaner.gui.events.EventProcessor;
+import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
+import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
+import timeplaner.gui.events.events.taskevents.SaveTaskEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlanBroker {
 
-//    private PlanController planController;
-
-//    public PlanBroker(PlanController planController) {
-//        this.planController = planController;
-//    }
 
     private Button buttonLoadTask = new Button("Load Task");
     private Button buttonCreateTask = new Button("Create Task");
     private TextField taskIdText = new TextField("0");
 
-
-//
-//    private Parent updateScene(Parent parentTask){
-//        planController.getGeneralScene().setRoot(parentTask);
-//        return parentTask;
-//    }
+    public PlanBroker() {
+        buttonCreateTask.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> EventProcessor.send(new CreateTaskEvent()));
+        buttonLoadTask.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
+                EventProcessor.send(new LoadTaskEvent(Long.valueOf(taskIdText.getText()))));
+    }
 
     public List<Control> getControlBottom() { //fixme there should be only buttons
         List<Control> controls = new ArrayList<>(0);
@@ -56,11 +48,11 @@ public class PlanBroker {
         return createTaskButton;
     }
 
-    public void setCreateTaskEvent(EventHandler eventCreateTask){
+    public void setCreateTaskEventHandler(EventHandler eventCreateTask) {
         buttonCreateTask.addEventHandler(MouseEvent.MOUSE_CLICKED, eventCreateTask);
     }
 
-    public void setLoadTaskEvent(EventHandler eventLoadTask){
+    public void setLoadTaskEventHandler(EventHandler eventLoadTask) {
         buttonLoadTask.addEventHandler(MouseEvent.MOUSE_CLICKED, eventLoadTask);
     }
 

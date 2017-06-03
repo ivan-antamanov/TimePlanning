@@ -1,4 +1,4 @@
-package timeplaner.plugin;
+package timeplaner.dao;
 
 import timeplaner.documents.maindocuments.AbstractMainDocument;
 import timeplaner.documents.maindocuments.impl.Project;
@@ -26,10 +26,10 @@ public class LocalSession {
     private FileOutputStream saveFileStream;
 
 
-    public Task findTaskById(int taskId) throws ParseException, IOException, ClassNotFoundException {
+    public Task findTaskById(Long taskId) throws ParseException, IOException, ClassNotFoundException {
         System.out.println("Try to GET task by id: " + taskId);
 
-        String fileName = path.toString() + taskId + ".dat"; //todo if getId not null;
+        String fileName = path.toString() + "\\" + taskId + ".dat"; //todo if getId not null;
         loadFileStream = new FileInputStream(fileName);
         loadObjectStream = new ObjectInputStream(loadFileStream);
         Task loadTask = (Task) loadObjectStream.readObject();
@@ -39,7 +39,7 @@ public class LocalSession {
 
     public void saveTask(Task task) throws IOException {
         System.out.println("Try to SAVE task by id: " + task.getId());
-        String fileName = path.toString() + task.getId() + ".dat"; //todo if getId not null;
+        String fileName = path.toString() + "\\" + task.getId() + ".dat"; //todo if getId not null;
         saveFileStream = new FileOutputStream(fileName);
         saveObjectStream = new ObjectOutputStream(saveFileStream);
         saveObjectStream.writeObject(task);

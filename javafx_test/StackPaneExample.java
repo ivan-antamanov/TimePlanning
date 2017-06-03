@@ -35,7 +35,7 @@ public class StackPaneExample extends Application {
 
         ObservableList list = stackPane.getChildren();
 
-        //Adding all the nodes to the pane
+        //Adding all the provider to the pane
 //        list.addAll(square, circle);
 
         //Creating a scene object

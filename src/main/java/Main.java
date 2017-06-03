@@ -1,63 +1,38 @@
-import javafx.geometry.Pos;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import timeplaner.controller.PlanController;
+import javafx.scene.Scene;
 import javafx.application.Application;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import timeplaner.gui.GeneralScene;
-import timeplaner.gui.broker.PlanBroker;
-import timeplaner.gui.layouts.PlanLayout;
-import timeplaner.gui.nodes.PlanParent;
-import timeplaner.gui.nodes.TaskParent;
-import timeplaner.plugin.LocalSession;
+import timeplaner.gui.auxiliary.panels.MenuPanel;
+import timeplaner.gui.events.handlers.SceneHandlersFactory;
+import timeplaner.gui.events.handlers.impl.SceneHandlersFactoryImpl;
+import timeplaner.gui.provider.PlanProvider;
+import timeplaner.gui.provider.TaskProvider;
+import timeplaner.dao.LocalSession;
 
 public class Main extends Application {
 
 
     public void start(Stage primaryStage) throws Exception {
-        LocalSession session = new LocalSession();
-        PlanParent planParent = new PlanParent(session);
-        TaskParent taskParent = new TaskParent(session);
-        taskParent.setVisible(false);
-        GeneralScene generalScene = new GeneralScene(getHigherPanel());
-        generalScene.setParentList(planParent.getPlanParent(), taskParent);
+        setFactories();
 
-        primaryStage.setScene(generalScene);
+
+
+        LocalSession session = new LocalSession();
+        MenuPanel menuPanel = new MenuPanel();
+        Scene scene = new Scene(menuPanel);
+        PlanProvider planProvider = new PlanProvider(session, scene);
+        TaskProvider taskProvider = new TaskProvider(session, scene);
+        taskProvider.getParent().setVisible(false);
+        ((Pane)(scene.getRoot())).getChildren().addAll(planProvider.getPlanParent(), taskProvider.getParent());
+
+        primaryStage.setScene(scene);
         primaryStage.show();
 //        primaryStage.setResizable(false);
     }
 
-    private MenuBar getMenu() { //todo rebuild
-        MenuBar menuBar = new MenuBar();
-
-        Menu menuFile = new Menu("File");
-
-        MenuItem saveItem = new MenuItem("Save");
-        MenuItem exitItem = new MenuItem("Exit");
-        menuFile.getItems().addAll(saveItem, exitItem);
-
-        Menu menuOptions = new Menu("Option");
-        MenuItem badSightedItem = new MenuItem("Bad-Sighted version");
-
-        menuOptions.getItems().addAll(badSightedItem);
-
-        menuBar.getMenus().addAll(menuFile, menuOptions);
-        return menuBar;
+    private void setFactories(){
+        SceneHandlersFactory.INSTANCE.set(new SceneHandlersFactoryImpl());
     }
-
-    private Pane getHigherPanel() {
-        VBox menuPane = new VBox(getMenu());
-        menuPane.setVisible(true);
-        menuPane.setAlignment(Pos.TOP_CENTER);
-        return menuPane;
-    }
-
-
-
-
 
 
 

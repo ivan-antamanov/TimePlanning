@@ -1,4 +1,4 @@
-package timeplaner.gui.layouts;
+package timeplaner.gui.docparents.impl;
 
 
 import javafx.geometry.Orientation;
@@ -7,19 +7,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.Control;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import timeplaner.gui.broker.PlanBroker;
 
 import java.util.List;
 
-public class PlanLayout {
-
-//    PlanBroker planBroker;
-//
-//    public PlanLayout(PlanBroker planBroker) {
-//        this.planBroker = planBroker;
-//    }
-
-
+public class PlanParent extends Parent {
 
 
     public Parent returnButtonPlanParent(List<Control> controls){

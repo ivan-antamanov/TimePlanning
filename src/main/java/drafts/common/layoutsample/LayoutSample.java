@@ -116,7 +116,7 @@ public class LayoutSample extends Application {
 
         HBox hbox = new HBox();
         hbox.setPadding(new Insets(15, 12, 15, 12));
-        hbox.setSpacing(10);   // Gap between nodes
+        hbox.setSpacing(10);   // Gap between provider
         hbox.setStyle("-fx-background-color: #336699;");
 
         Button buttonCurrent = new Button("Current");
@@ -137,7 +137,7 @@ public class LayoutSample extends Application {
 
         VBox vbox = new VBox();
         vbox.setPadding(new Insets(10)); // Set all sides to 10
-        vbox.setSpacing(8);              // Gap between nodes
+        vbox.setSpacing(8);              // Gap between provider
 
         Text title = new Text("Data");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
@@ -184,7 +184,7 @@ public class LayoutSample extends Application {
         stack.getChildren().addAll(helpIcon, helpText);
         stack.setAlignment(Pos.CENTER_RIGHT);
         // Add offset to right for question mark to compensate for RIGHT
-        // alignment of all nodes
+        // alignment of all provider
         StackPane.setMargin(helpText, new Insets(0, 10, 0, 0));
 
         hb.getChildren().add(stack);

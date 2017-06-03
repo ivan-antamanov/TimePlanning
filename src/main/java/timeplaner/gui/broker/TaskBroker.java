@@ -1,29 +1,24 @@
 package timeplaner.gui.broker;
 
-import timeplaner.controller.TaskController;
+import timeplaner.gui.events.EventProcessor;
+import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
 import timeplaner.documents.auxiliary.Priority;
 import timeplaner.documents.auxiliary.Status;
 import timeplaner.documents.subdocuments.AbstractAction;
 import timeplaner.documents.subdocuments.impl.Task;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.apache.commons.lang.StringUtils;
-import timeplaner.plugin.LocalSession;
 
-import java.time.Clock;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Predicate;
 
 import static timeplaner.gui.auxiliary.LabelFields.*;
 
 public class TaskBroker {
-
 
     private TextField taskName = new TextField();
     private ChoiceBox<String> priorityChoiceBox = new ChoiceBox<>();
@@ -37,9 +32,12 @@ public class TaskBroker {
 
     private Button saveButton = new Button("Save Task");
 
-    {
+    public TaskBroker() {
         priorityChoiceBox.getItems().addAll(Priority.getAllNames());
         statusChoiceBox.getItems().addAll(Status.getAllNames());
+        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            EventProcessor.send(new LoadTaskEvent(Long.parseLong(taskId.getText())));
+        });
     }
 
 
@@ -123,9 +121,11 @@ public class TaskBroker {
         return saveButton;
     }
 
-    public void addSaveEvent(EventHandler saveEvent){
-        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, saveEvent);
-    }
+//    public void addSaveEvent(ProjectEventHandler saveEvent){
+//        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+//            EventProcessor.send(new LoadTaskEvent(Long.parseLong(taskId.getText())));
+//        });
+//    }
 
 
     private TextArea customizeDescription(TextArea taskDescription) {

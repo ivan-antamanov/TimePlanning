@@ -1,22 +1,7 @@
 package timeplaner.controller;
 
 
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import timeplaner.documents.subdocuments.impl.Task;
-import timeplaner.gui.GeneralScene;
-import timeplaner.plugin.LocalSession;
-
-import java.io.IOException;
-import java.text.ParseException;
+import timeplaner.dao.LocalSession;
 
 
 public class PlanController {
@@ -28,25 +13,25 @@ public class PlanController {
         this.localSession = localSession;
     }
 
-    private Task getTaskById(int taskId) {
-        try {
-            try {
-                return localSession.findTaskById(taskId);
-            } catch (IOException e) {
-                System.out.println("Task with Id: " + taskId + " was not found");
-            } catch (ClassNotFoundException e) {
-                System.out.println("Not correct type for Id: " + taskId);
-            }
-        } catch (ParseException e) {
-            System.out.println("task was not found");
-        }
-        return null;
-    }
-
-    public Task returnTaskById(int taskId) {
-        return getTaskById(taskId);
-
-    }
+//    private Task getTaskById(int taskId) {
+//        try {
+//            try {
+//                return localSession.findTaskById(taskId);
+//            } catch (IOException e) {
+//                System.out.println("Task with Id: " + taskId + " was not found");
+//            } catch (ClassNotFoundException e) {
+//                System.out.println("Not correct type for Id: " + taskId);
+//            }
+//        } catch (ParseException e) {
+//            System.out.println("task was not found");
+//        }
+//        return null;
+//    }
+//
+//    public Task returnTaskById(int taskId) {
+//        return getTaskById(taskId);
+//
+//    }
 
 //    public LocalSession getLocalSession() {
 //        return localSession;
@@ -109,7 +94,7 @@ public class PlanController {
 
 //
 //
-//    private void registrationMouseClicked(EventHandler eventHandler, Parent component){
+//    private void registrationMouseClicked(ProjectEventHandler eventHandler, Parent component){
 //        component.addEventHandler(MouseEvent.MOUSE_CLICKED ,eventHandler);
 //    }
 }

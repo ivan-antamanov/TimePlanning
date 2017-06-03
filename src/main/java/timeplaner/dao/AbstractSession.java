@@ -1,4 +1,4 @@
-package timeplaner.plugin;
+package timeplaner.dao;
 
 
 public class AbstractSession {

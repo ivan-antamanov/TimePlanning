@@ -70,7 +70,7 @@ public class EventFiltersExample extends Application {
         scene.setFill(Color.LAVENDER);
 
         //Setting title to the Stage
-        stage.setTitle("Event Filters Example");
+        stage.setTitle("ProjectEvent Filters Example");
 
         //Adding scene to the stage
         stage.setScene(scene);

@@ -104,7 +104,7 @@ public class Registration extends Application {
         //Setting the Grid alignment
         gridPane.setAlignment(Pos.CENTER);
 
-        //Arranging all the nodes in the grid
+        //Arranging all the provider in the grid
         gridPane.add(nameLabel, 0, 0);
         gridPane.add(nameText, 1, 0);
 
@@ -130,7 +130,7 @@ public class Registration extends Application {
 
         gridPane.add(buttonRegister, 2, 8);
 
-        //Styling nodes
+        //Styling provider
         buttonRegister.setStyle(
                 "-fx-background-color: darkslateblue; -fx-textfill: white;");
 
