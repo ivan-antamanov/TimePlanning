@@ -2,7 +2,7 @@ package timeplaner.controller;
 
 
 import timeplaner.dao.LocalSession;
-import timeplaner.documents.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.Task;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -16,16 +16,6 @@ public class TaskController {
     public TaskController(LocalSession localSession) {
         this.localSession = localSession;
     }
-
-
-//    public Parent returnNewTaskParent(){
-//        Date date = new Date();
-//        long id = date.getTime();
-//
-//        taskLayout = new TaskProvider();
-//        return taskLayout.returnNewTaskParent();
-//    }
-
 
     private Task getTaskById(Long taskId) {
         try {
@@ -46,7 +36,6 @@ public class TaskController {
         return getTaskById(taskId);
 
     }
-
 
     public void saveTask(Task task){
         try {

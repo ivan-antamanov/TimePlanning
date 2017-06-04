@@ -1,7 +1,7 @@
 package drafts.common;
 
 
-import timeplaner.documents.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.Task;
 import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -38,7 +38,7 @@ public class TaskDraft extends Application {
         Text nameLabel = new Text("Name");
         TextField nameText = new TextField(document.getName());
 
-        Text mainDocLabel = new Text("Main Document");
+        Text mainDocLabel = new Text("Main GuiDocument");
         TextField mainDocText = new TextField(); //todo check if document is present
 
         Text descriptionLabel = new Text("Description");

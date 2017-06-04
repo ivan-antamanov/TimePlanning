@@ -1,6 +1,6 @@
 package drafts.common;
 
-import timeplaner.gui.auxiliary.LabelFields;
+import timeplaner.gui.additional.LabelFields;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

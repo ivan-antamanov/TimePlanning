@@ -1,9 +1,7 @@
 package timeplaner.dao;
 
-import timeplaner.documents.maindocuments.AbstractMainDocument;
-import timeplaner.documents.maindocuments.impl.Project;
-import timeplaner.documents.subdocuments.AbstractAction;
-import timeplaner.documents.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.AbstractAction;
+import timeplaner.entities.subdocuments.impl.Task;
 
 import java.io.*;
 import java.nio.file.Path;
@@ -46,34 +44,4 @@ public class LocalSession {
         saveObjectStream.close();
     }
 
-//    private static Task returnTask() throws ParseException {
-//        String name = "Basic structure for task";
-//        String description = "Create basic structure GUI for task";
-//        Period period = Period.between(LocalDate.now(), toDate);
-//
-//        Task action = new Task(name, description, period);
-//
-//        action.setPriority(Priority.NORMAL);
-//        action.setStatus(Status.IN_PROGRESS);
-//        action.setLinkedSubDocs(returnLinkedTask());
-//        action.setMainDocument(returMainDoc());
-//        return action;
-//    }
-
-//    private static List<AbstractAction> returnLinkedTask() {
-//        String name = "Save/load task locally";
-//        String description = "Realize plugin for task";
-//        Period period = Period.between(LocalDate.now(), toDate);
-//        AbstractAction linkedTask = new Task(name, description, period);
-//        linkedTask.setPriority(Priority.NORMAL);
-//        linkedTask.setStatus(Status.OPEN);
-//        return Arrays.asList(linkedTask);
-//    }
-
-    private static AbstractMainDocument returMainDoc() {
-        String name = "Time Planning";
-        AbstractMainDocument mainDocument = new Project();
-        mainDocument.setName(name);
-        return mainDocument;
-    }
 }
