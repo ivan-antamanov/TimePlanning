@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import org.apache.commons.lang.StringUtils;
+import timeplaner.gui.events.events.taskevents.SaveTaskEvent;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -36,7 +37,7 @@ public class TaskCascade {
         priorityChoiceBox.getItems().addAll(Priority.getAllNames());
         statusChoiceBox.getItems().addAll(Status.getAllNames());
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            EventProcessor.send(new LoadTaskEvent(Long.parseLong(taskId.getText())));
+            EventProcessor.send(new SaveTaskEvent());
         });
     }
 
@@ -56,7 +57,8 @@ public class TaskCascade {
 //        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
 //        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
         taskDescription.clear();
-        taskCreationDate = new TextField(LocalDate.now().toString());
+        taskCreationDate.setText(LocalDate.now().toString());
+        taskCreationDate.setEditable(false);
         taskId.clear(); //todo generate unique id;
         return this;
     }
