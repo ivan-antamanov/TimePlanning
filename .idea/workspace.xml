@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <list default="true" id="1ead424a-838c-418f-b437-17d2aa7be762" name="Default" comment="" />
 =======
     <list default="true" id="1ead424a-838c-418f-b437-17d2aa7be762" name="Default" comment="">
@@ -155,6 +156,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/timePlanning.iml" afterPath="$PROJECT_DIR$/timePlanning.iml" />
     </list>
 >>>>>>> Shorts update
+=======
+    <list default="true" id="1ead424a-838c-418f-b437-17d2aa7be762" name="Default" comment="" />
+>>>>>>> Fixed save path and create date field
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -1771,7 +1775,7 @@
       <option name="presentableId" value="Default" />
       <updated>1494423172569</updated>
       <workItem from="1496600505883" duration="3946000" />
-      <workItem from="1497034755173" duration="263000" />
+      <workItem from="1497034755173" duration="381000" />
     </task>
     <task id="LOCAL-00001" summary="Refactored entities structure, update draft">
       <created>1494771822926</created>
@@ -1861,6 +1865,7 @@
       <updated>1496502055151</updated>
     </task>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <task id="LOCAL-00010" summary="Updates task version with full events and good viewable size">
       <created>1496595093300</created>
       <option name="number" value="00010" />
@@ -1904,10 +1909,20 @@
 =======
     <option name="localTasksCounter" value="10" />
 >>>>>>> Updates task version with full events and good viewable size
+=======
+    <task id="LOCAL-00010" summary="Fixed save path and create date field">
+      <created>1497035098554</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1497035098554</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+>>>>>>> Fixed save path and create date field
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4209000" />
+    <option name="totallyTimeSpent" value="4327000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2166,8 +2181,13 @@
 >>>>>>> Events was added, need to debug for reproduce and then rebuild code structure
 =======
     <MESSAGE value="Events was added, need to debug for reproduce and then rebuild code structure" />
+<<<<<<< HEAD
     <option name="LAST_COMMIT_MESSAGE" value="Events was added, need to debug for reproduce and then rebuild code structure" />
 >>>>>>> Updates task version with full events and good viewable size
+=======
+    <MESSAGE value="Fixed save path and create date field" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed save path and create date field" />
+>>>>>>> Fixed save path and create date field
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
