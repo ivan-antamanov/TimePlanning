@@ -11,7 +11,8 @@
 .mtj.tmp/
 
 /target
-.idea/workspace.xml
+/.idea
+.idea/
 
 # Package Files #
 *.jar
