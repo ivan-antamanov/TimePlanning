@@ -11,8 +11,11 @@
 .mtj.tmp/
 
 /target
+<<<<<<< HEAD
 /.idea
 .idea/
+=======
+>>>>>>> Test Rebase
 
 # Package Files #
 *.jar
