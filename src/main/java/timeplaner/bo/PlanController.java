@@ -1,4 +1,4 @@
-package timeplaner.controller;
+package timeplaner.bo;
 
 
 import timeplaner.dao.LocalSession;

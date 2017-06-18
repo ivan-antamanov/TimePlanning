@@ -18,10 +18,7 @@ public abstract class AbstractSubDocument extends AbstractDocument {
         super(name, description);
     }
 
-    public AbstractSubDocument(String name, Long id, String description) {
-        super(name, id, description);
-    }
-//    private TimeTracker timeTracker todo realization
+    //    private TimeTracker timeTracker todo realization
 //    private Attachment attachment todo realization
 //    private Priority priority todo realization
 

@@ -23,11 +23,6 @@ public abstract class AbstractAction extends AbstractSubDocument {
         super(name, description);
     }
 
-    public AbstractAction(String name, Long id, String description) {
-        super(name, id, description);
-    }
-
-
     public Priority getPriority() {
         return priority;
     }

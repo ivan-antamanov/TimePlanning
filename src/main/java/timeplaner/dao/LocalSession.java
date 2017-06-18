@@ -17,7 +17,7 @@ public class LocalSession {
     static String dateFormat = "yyyy-MM-dd";
     static String stringDate = "2017-05-21";
     static LocalDate toDate = LocalDate.parse(stringDate, DateTimeFormatter.ofPattern(dateFormat));
-    private Path path = Paths.get("src/test/resources/");
+    private Path path = Paths.get("src/main/resources/");
     private ObjectOutputStream saveObjectStream;
     private ObjectInputStream loadObjectStream;
     private FileInputStream loadFileStream;
@@ -39,11 +39,13 @@ public class LocalSession {
         System.out.println("Try to SAVE task by id: " + task.getId());
         String line = "\\" + task.getId() + ".dat";
         File file = new File(String.valueOf(this.getClass().getResource(line)));
-        String fileName = path.toString() + "/" + task.getId() + ".dat"; //todo if getId not null;
-        saveFileStream = new FileOutputStream(fileName);
-        saveObjectStream = new ObjectOutputStream(saveFileStream);
-        saveObjectStream.writeObject(task);
-        saveObjectStream.close();
+        String fileName = path.toString() + "\\" + task.getId() + ".dat"; //todo if getId not null;
+
+            saveFileStream = new FileOutputStream(fileName);
+            saveObjectStream = new ObjectOutputStream(saveFileStream);
+            saveObjectStream.writeObject(task);
+            saveObjectStream.close();
+
     }
 
 }

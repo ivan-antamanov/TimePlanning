@@ -1,7 +1,9 @@
-package timeplaner.gui.docs.carcases;
+package timeplaner.gui.docs.carcases.impl;
 
+import javafx.scene.Parent;
+import timeplaner.entities.AbstractDocument;
+import timeplaner.entities.Document;
 import timeplaner.gui.events.EventProcessor;
-import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
 import timeplaner.entities.auxiliary.Priority;
 import timeplaner.entities.auxiliary.Status;
 import timeplaner.entities.subdocuments.AbstractAction;
@@ -19,21 +21,18 @@ import java.util.function.Predicate;
 
 import static timeplaner.gui.additional.LabelFields.*;
 
-public class TaskCascade {
-
-    private TextField taskName = new TextField();
+public class TaskSkeleton extends AbstractSkeleton {
+    private TextField mainDocument = new TextField();
     private ChoiceBox<String> priorityChoiceBox = new ChoiceBox<>();
     private ChoiceBox<String> statusChoiceBox = new ChoiceBox<>();
-    private TextArea taskDescription = new TextArea();
-    private TextField taskCreationDate = new TextField();
-    private TextField taskId = new TextField();
     private TextField taskPeriod = new TextField();
     private TextField linkedTask = new TextField();
-    private TextField mainDocument = new TextField();
 
     private Button saveButton = new Button("Save Task");
 
-    public TaskCascade() {
+
+    @Override
+    protected void registrationEvents() {
         priorityChoiceBox.getItems().addAll(Priority.getAllNames());
         statusChoiceBox.getItems().addAll(Status.getAllNames());
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -41,28 +40,39 @@ public class TaskCascade {
         });
     }
 
-
-    public TaskCascade updateTaskView(AbstractAction action) { //fixme: not create new object
-        taskName = new TextField(action.getName());
-        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
-        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
-        taskDescription = new TextArea(action.getDescription());
-        taskCreationDate = new TextField(action.getCreateDate().toString());
-        taskId = new TextField(action.getId().toString());
-        return this;
-    }
-
-    public TaskCascade newTaskView() {
-        taskName.clear();
+    @Override
+    public AbstractSkeleton newSkeleton(AbstractDocument abstractDocument) {
+        Task task = (Task) abstractDocument;
+        name.clear();
 //        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
 //        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
-        taskDescription.clear();
-        taskCreationDate.setText(LocalDate.now().toString());
-        taskCreationDate.setEditable(false);
-        taskId.clear(); //todo generate unique id;
+        description.clear();
+        creationDate.setText(task.getCreateDate().toString());
+        id.setText(String.valueOf(task.getId()));
         return this;
     }
 
+    @Override
+    public AbstractSkeleton updateSkeleton(AbstractDocument abstractDocument) {//fixme: not create new object
+        Task task = (Task) abstractDocument;
+        name = new TextField(task.getName());
+        priorityChoiceBox.getSelectionModel().select(  task.getPriority().getName());
+        statusChoiceBox.getSelectionModel().select(task.getStatus().getName());
+        description = new TextArea(task.getDescription());
+        creationDate.setText(task.getCreateDate().toString());
+        id.setText(task.getId().toString());
+        return this;
+    }
+
+    @Override
+    public AbstractDocument getDocument() {
+        Task task = new Task(name.getText(), description.getText());
+        Priority priority = Priority.getByName(priorityChoiceBox.getValue());
+        Status status = Status.getByName(statusChoiceBox.getValue());
+        task.setPriority(priority);
+        task.setStatus(status);
+        return task;
+    }
 
     public List<Hyperlink> getHyperLinkTop() {
         Predicate<String> isBlank = StringUtils::isBlank;
@@ -74,47 +84,35 @@ public class TaskCascade {
             mainProjectHypLink.setText(mainDocument.getText());
         }
 
-        if (isBlank.test(taskName.getText())) {
+        if (isBlank.test(name.getText())) {
             taskNameHypLink.setText("No Task Name");
         } else {
-            taskNameHypLink.setText(taskName.getText());
+            taskNameHypLink.setText(name.getText());
         }
 
         return Arrays.asList(mainProjectHypLink, taskNameHypLink);
     }
 
-    public Task getTaskFromNode() {
-        Task task = new Task(taskName.getText(), Long.parseLong(taskId.getText()), taskDescription.getText());
-        Priority priority = Priority.getByName(priorityChoiceBox.getValue());
-        Status status = Status.getByName(statusChoiceBox.getValue());
-        task.setPriority(priority);
-        task.setStatus(status);
-        return task;
-    }
-
-    public void showSuccessDialog() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("I have a great message for you: Task was successfully created!");
-        alert.showAndWait();
-    }
-
     public Map<Text, Control> getLabelAndControlMapLeft() {
         Map<Text, Control> getLabelAndControlMap = new LinkedHashMap<>();
-        getLabelAndControlMap.putIfAbsent(NAME_LABEL.getTextLabel(), taskName);
+        getLabelAndControlMap.putIfAbsent(NAME_LABEL.getTextLabel(), name);
         getLabelAndControlMap.putIfAbsent(PRIORITY_LABEL.getTextLabel(), priorityChoiceBox);
         getLabelAndControlMap.putIfAbsent(STATUS_LABEL.getTextLabel(), statusChoiceBox);
-        getLabelAndControlMap.putIfAbsent(CREATION_DATE_LABEL.getTextLabel(), taskCreationDate);
-        getLabelAndControlMap.putIfAbsent(ID_LABEL.getTextLabel(), taskId);
 
         return getLabelAndControlMap;
     }
 
+    public Map<Text, Text> getConstantLabelsMap(){
+        Map<Text, Text> getLabelsMap = new LinkedHashMap<>();
+        getLabelsMap.putIfAbsent(ID_LABEL.getTextLabel(), id);
+        getLabelsMap.putIfAbsent(CREATION_DATE_LABEL.getTextLabel(), creationDate);
+        return getLabelsMap;
+    }
+
     public Map<Text, Control> getLabelAndControlMapCenter() {
         Map<Text, Control> getLabelAndControlMap = new LinkedHashMap<>();
-        customizeDescription(taskDescription);
-        getLabelAndControlMap.putIfAbsent(DESCRIPTION_LABEL.getTextLabel(), taskDescription);
+        customizeDescription(description);
+        getLabelAndControlMap.putIfAbsent(DESCRIPTION_LABEL.getTextLabel(), description);
 
         return getLabelAndControlMap;
     }
@@ -144,6 +142,7 @@ public class TaskCascade {
 //        saveButton.addEventFilter();
         return saveButton;
     }
+
 
 //    public void addSaveEvent(ProjectEventHandler saveEvent){
 //        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {

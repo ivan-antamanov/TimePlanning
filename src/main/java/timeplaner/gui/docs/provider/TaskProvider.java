@@ -8,17 +8,18 @@ import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
 import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
 import timeplaner.gui.events.events.taskevents.SaveTaskEvent;
-import timeplaner.controller.TaskController;
+import timeplaner.bo.TaskController;
 import timeplaner.entities.subdocuments.impl.Task;
-import timeplaner.gui.docs.carcases.TaskCascade;
 import timeplaner.dao.LocalSession;
 import timeplaner.gui.events.handlers.SceneHandlersFactory;
+
+import java.io.IOException;
 
 
 public class TaskProvider {
 
     private Scene generalScene;
-    private TaskCascade taskCascade = new TaskCascade();
+//    private TaskSkeleton taskCascade = new TaskSkeleton();
     private TaskParent taskParent = new TaskParent();
     private TaskController taskController;
 
@@ -31,14 +32,17 @@ public class TaskProvider {
         EventProcessor.register(ChangeChildrenVisibilityEvent.class, SceneHandlersFactory.INSTANCE.get().getVisibilityHandler());
     }
 
-
     private ProjectEventHandler<SaveTaskEvent> saveTaskHandler = new ProjectEventHandler<SaveTaskEvent>() {
         @Override
         public void handle(SaveTaskEvent event) {
-            Task task = taskCascade.getTaskFromNode();
+            Task task = taskParent.getTaskFromNode();
             System.out.println("Try to save Task with Id: " + task.getId()); //todo as logger
-            taskController.saveTask(task);
-            taskCascade.showSuccessDialog();
+            try {
+                taskController.saveTask(task);
+                taskParent.showSuccessDialog();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     };
 
@@ -46,7 +50,6 @@ public class TaskProvider {
         @Override
         public void handle(LoadTaskEvent event) {
             System.out.println("Button \"Load Task\" was pressed"); //fixme
-
             Task task = taskController.returnTaskById(event.getId()); //fixme: too long +addd validation for null and NumberFormatException
             updateTaskNode(task);
             EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), generalScene));
@@ -59,22 +62,20 @@ public class TaskProvider {
             System.out.println("Button \"Create new Task\" was pressed");
             newTaskNode(); //fixme: too long +addd validation for null and NumberFormatException
             EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), generalScene));
-
-
         }
     };
 
     private TaskParent updateTaskNode(Task task) {
-       return taskParent.updateTaskParent(taskCascade.updateTaskView(task));//fixme too long line
+        return taskParent.updateTaskParent(task);//fixme too long line
 
     }
 
     private TaskParent newTaskNode() {
-        return taskParent.getTaskParent(taskCascade.newTaskView());//fixme too long line
+        return taskParent.getTaskParent();//fixme too long line
 
     }
 
     public TaskParent getParent() {
-        return taskParent.getTaskParent(taskCascade);
+        return taskParent.getTaskParent();
     }
 }

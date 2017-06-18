@@ -3,14 +3,12 @@ package timeplaner.gui.docs.provider;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import timeplaner.controller.PlanController;
-import timeplaner.gui.docs.carcases.PlanCarcase;
+import timeplaner.bo.PlanController;
 import timeplaner.gui.docs.parents.impldoc.PlanParent;
 import timeplaner.dao.LocalSession;
 
 public class PlanProvider {
 
-    PlanCarcase planCarcase = new PlanCarcase();
     PlanParent planParent = new PlanParent();
     PlanController planController;
 
@@ -21,6 +19,6 @@ public class PlanProvider {
 
 
     public Parent getPlanParent(){
-        return planParent.returnButtonPlanParent(planCarcase.getControlBottom());
+        return planParent.getGeneralPane();
     }
 }

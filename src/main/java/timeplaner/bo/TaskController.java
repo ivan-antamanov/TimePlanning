@@ -1,4 +1,4 @@
-package timeplaner.controller;
+package timeplaner.bo;
 
 
 import timeplaner.dao.LocalSession;
@@ -37,14 +37,11 @@ public class TaskController {
 
     }
 
-    public void saveTask(Task task){
-        try {
-            System.out.println("Try to save task with Id:" +task.getId());
-            localSession.saveTask(task);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+    public void saveTask(Task task) throws IOException {
 
+        System.out.println("Try to save task with Id:" + task.getId());
+        localSession.saveTask(task);
+
+    }
 
 }

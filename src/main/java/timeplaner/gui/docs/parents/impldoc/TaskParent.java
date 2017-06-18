@@ -1,6 +1,8 @@
 package timeplaner.gui.docs.parents.impldoc;
 
 
+import javafx.scene.control.Alert;
+import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.additional.BorderUtils;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -11,7 +13,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.gui.docs.carcases.TaskCascade;
+import timeplaner.gui.docs.carcases.impl.TaskSkeleton;
 import timeplaner.gui.docs.parents.GuiDocument;
 
 import java.util.List;
@@ -21,40 +23,48 @@ import static timeplaner.gui.additional.LabelFields.RIGHT_SLASH;
 
 public class TaskParent extends Parent implements GuiDocument {
 
-    public TaskParent getTaskParent(TaskCascade taskCascade){
-        if (this.getChildren().isEmpty()){
-            this.getChildren().addAll(getParent(taskCascade));
+    private TaskSkeleton skeleton = new TaskSkeleton();
+
+    public TaskParent getTaskParent() {
+        skeleton.newSkeleton(new Task());
+        if (this.getChildren().isEmpty()) {
+            this.getChildren().addAll(getParent(skeleton));
             return this;
         }
         return this;
     }
 
-    public TaskParent updateTaskParent(TaskCascade taskCascade){
+    public Task getTaskFromNode() {
+        return (Task) skeleton.getDocument();
+    }
+
+    public TaskParent updateTaskParent(Task task) {
+        skeleton.updateSkeleton(task);
         this.getChildren().clear();
-        this.getChildren().addAll(getParent(taskCascade));
+        this.getChildren().addAll(getParent(skeleton));
         return this;
     }
 
-    private VBox getParent(TaskCascade taskCascade){
-        VBox mainPane = (VBox)customizeTaskPane();
-        mainPane.getChildren().add(getGeneralPane(taskCascade));
-        mainPane.getChildren().add(getButtonBottom(taskCascade.getButtonsBottom()));
+    private VBox getParent(TaskSkeleton taskSkeleton) {
+        VBox mainPane = (VBox) customizeTaskPane();
+        mainPane.getChildren().add(getGeneralPane(taskSkeleton));
+        mainPane.getChildren().add(getButtonBottom(taskSkeleton.getButtonsBottom()));
         return mainPane;
     }
 
-    private Pane customizeTaskPane(){
+    private Pane customizeTaskPane() {
         VBox mainPane = new VBox();
         return mainPane;
     }
 
-    private Pane getGeneralPane(TaskCascade taskCascade) {
+    private Pane getGeneralPane(TaskSkeleton taskSkeleton) {
         BorderPane generalPane = new BorderPane();
 
         generalPane.setBorder(BorderUtils.getOtherTaskBorder());
-        Pane topPane = getTopPane(taskCascade.getHyperLinkTop());
-        Pane leftPane = getLeftPane(taskCascade.getLabelAndControlMapLeft());
-        Pane centerPane = getCenterPane(taskCascade.getLabelAndControlMapCenter());
-        Pane bottomPane = getBottomPane(taskCascade.getLabelAndControlMapBottom());
+        Pane topPane = getTopPane(taskSkeleton.getHyperLinkTop());
+        Pane leftPane = getLeftPane(taskSkeleton.getLabelAndControlMapLeft(), taskSkeleton.getConstantLabelsMap());
+        Pane centerPane = getCenterPane(taskSkeleton.getLabelAndControlMapCenter());
+        Pane bottomPane = getBottomPane(taskSkeleton.getLabelAndControlMapBottom());
 
         generalPane.setPrefWidth(400);
         centerPane.setMaxHeight(230);
@@ -70,18 +80,18 @@ public class TaskParent extends Parent implements GuiDocument {
     private Pane getTopPane(List<Hyperlink> hyperLinkTop) {
         FlowPane topPane = (FlowPane) returnHyperLinkTopPane();
 //        topPane.setAlignment(Pos.TOP_CENTER);
-        topPane.getChildren().addAll(hyperLinkTop.get(0),RIGHT_SLASH.getTextLabel(), hyperLinkTop.get(1) );
+        topPane.getChildren().addAll(hyperLinkTop.get(0), RIGHT_SLASH.getTextLabel(), hyperLinkTop.get(1));
 //        FontUtils.setTopLinkFont(RIGHT_SLASH.getTextLabel());
         return topPane;
     }
 
-    private Pane returnHyperLinkTopPane(){
+    private Pane returnHyperLinkTopPane() {
         FlowPane topPane = new FlowPane();
         topPane.setOrientation(Orientation.HORIZONTAL);
         return topPane;
     }
 
-    private Pane getLeftPane(Map<Text, Control> textControlMap) { //todo Another Class
+    private Pane getLeftPane(Map<Text, Control> textControlMap, Map<Text, Text> textConstantMap) { //todo rebuild && Another Class
         GridPane leftPane = customizeAndCreateLeftPane();
         int firstColumn = 0;
         int secondColumn = 1;
@@ -91,6 +101,13 @@ public class TaskParent extends Parent implements GuiDocument {
             control.setMaxWidth(Double.MAX_VALUE);
             leftPane.addColumn(firstColumn, label);
             leftPane.addColumn(secondColumn, control);
+        }
+
+        for (Map.Entry<Text, Text> entry : textConstantMap.entrySet()) {
+            Text label = entry.getKey();
+            Text labelValue = entry.getValue();
+            leftPane.addColumn(firstColumn, label);
+            leftPane.addColumn(secondColumn, labelValue);
         }
 
         return leftPane;
@@ -106,12 +123,12 @@ public class TaskParent extends Parent implements GuiDocument {
     }
 
     private Pane getCenterPane(Map<Text, Control> textControlMap) {
-        FlowPane centerPane = (FlowPane) customizeAndCreateCenterPane();
+        FlowPane centerPane = customizeAndCreateCenterPane();
         textControlMap.forEach((text, control) -> centerPane.getChildren().addAll(text, control));
         return centerPane;
     }
 
-    private FlowPane customizeAndCreateCenterPane(){
+    private FlowPane customizeAndCreateCenterPane() {
         FlowPane rightPane = new FlowPane();
 //        rightPane.setMinSize(400, 200);
 //        rightPane.setMaxSize(400,300);
@@ -123,13 +140,13 @@ public class TaskParent extends Parent implements GuiDocument {
         return rightPane;
     }
 
-    private Pane getButtonBottom(List<Button> buttons){
+    private Pane getButtonBottom(List<Button> buttons) {
         HBox btnLayout = (HBox) customizedAndCreateButtonBottomPane();
         buttons.forEach(btn -> btnLayout.getChildren().addAll(btn));
         return btnLayout;
     }
 
-    private Pane customizedAndCreateButtonBottomPane(){
+    private Pane customizedAndCreateButtonBottomPane() {
         HBox btnLayout = new HBox();
         btnLayout.setBorder(BorderUtils.getOtherTaskBorder());
         btnLayout.setAlignment(Pos.BOTTOM_RIGHT);
@@ -143,7 +160,7 @@ public class TaskParent extends Parent implements GuiDocument {
         return bottomPane;
     }
 
-    private Pane customizeAndCreateBottomPane(){
+    private Pane customizeAndCreateBottomPane() {
         FlowPane bottomPane = new FlowPane();
         bottomPane.setAlignment(Pos.TOP_LEFT);
         bottomPane.setMinHeight(20);
@@ -153,4 +170,11 @@ public class TaskParent extends Parent implements GuiDocument {
         return bottomPane;
     }
 
+    public void showSuccessDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("I have a great message for you: Task was successfully created!");
+        alert.showAndWait();
+    }
 }

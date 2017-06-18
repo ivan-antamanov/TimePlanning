@@ -6,6 +6,7 @@ import timeplaner.entities.subdocuments.AbstractAction;
 public class Task extends AbstractAction {
 
     public Task() {
+        super();
     }
 
     public Task(Long id) {
@@ -16,7 +17,4 @@ public class Task extends AbstractAction {
         super(name, description);
     }
 
-    public Task(String name, Long id, String description) {
-        super(name, id, description);
-    }
 }

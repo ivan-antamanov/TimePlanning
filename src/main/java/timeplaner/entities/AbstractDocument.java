@@ -1,22 +1,28 @@
 package timeplaner.entities;
 
 
+import timeplaner.entities.maindocuments.AbstractMainDocument;
+
 import java.io.Serializable;
-import java.time.Period;
+import java.time.*;
 import java.util.Date;
 
 public class AbstractDocument implements Document, Serializable {
 
     private String name;
-    private Long id;
     private String description;
+    private LocalDate createDate;
+    private Long id;
 //    private Logger logActivity; todo Add logger as Class
 //    private People people; todo Add people as Class
 //    private VisualMarker visualMarker todo Add Marker as Class
 //    private Report report todo Add Marker as report or make it as utils class
     private Boolean docWasChanged;
-    private Date createDate = new Date();
     private Period period;
+    private Person owner;
+    private AbstractMainDocument mainDocument;
+    private Type type;
+
 
     public AbstractDocument() {
     }
@@ -26,25 +32,45 @@ public class AbstractDocument implements Document, Serializable {
     }
 
     public AbstractDocument(String name, String description) {
-        this(name, null, description);
-    }
-
-    public AbstractDocument(String name, Long id, String description) {
         this.name = name;
-        this.id = id;
         this.description = description;
-        this.createDate = new Date();
+        createDate = LocalDate.now();
+        id = setUniqueId();
 //        this.period = period;
     }
 
-
-
-    public Date getCreateDate() {
-        return createDate;
+    private long setUniqueId() {
+        LocalDateTime ldt = LocalDateTime.now();
+        ZonedDateTime zdt = ldt.atZone(ZoneId.of("Africa/Cairo"));
+        return zdt.toInstant().toEpochMilli();
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public AbstractMainDocument getMainDocument() {
+        return mainDocument;
+    }
+
+    public void setMainDocument(AbstractMainDocument mainDocument) {
+        this.mainDocument = mainDocument;
+    }
+
+    public LocalDate getCreateDate() {
+        return createDate;
     }
 
     public Period getPeriod() {

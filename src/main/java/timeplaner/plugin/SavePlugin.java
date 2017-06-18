@@ -1,12 +1,12 @@
 package timeplaner.plugin;
 
 
-import timeplaner.dao.AbstractSession;
+import timeplaner.dao.AbstractLocalSession;
 import timeplaner.entities.AbstractDocument;
 
 public abstract class SavePlugin implements Plugin {
 
-    private AbstractSession session;
+    private AbstractLocalSession session;
 
     public abstract void createDocument(AbstractDocument document);
 

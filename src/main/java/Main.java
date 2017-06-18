@@ -9,10 +9,14 @@ import timeplaner.gui.docs.provider.PlanProvider;
 import timeplaner.gui.docs.provider.TaskProvider;
 import timeplaner.dao.LocalSession;
 
+import java.util.logging.Logger;
+
 public class Main extends Application {
 
+    private Logger logger = Logger.getLogger(Main.class.getName());
 
     public void start(Stage primaryStage) throws Exception {
+        logger.info("Start Application");
         setFactories();
         LocalSession session = new LocalSession();
         MenuPanel menuPanel = new MenuPanel();
@@ -27,7 +31,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
-        primaryStage.setResizable(false);
+//        primaryStage.setResizable(false);
     }
 
     private void setFactories(){
