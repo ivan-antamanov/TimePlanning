@@ -13,6 +13,7 @@ public abstract class AbstractAction extends AbstractSubDocument {
     private List<AbstractAction> linkedSubDocs;
 
     public AbstractAction() {
+        super();
     }
 
     public AbstractAction(Long id) {

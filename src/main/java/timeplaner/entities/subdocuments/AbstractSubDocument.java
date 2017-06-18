@@ -8,6 +8,7 @@ public abstract class AbstractSubDocument extends AbstractDocument {
     private AbstractMainDocument mainDocument;
 
     public AbstractSubDocument() {
+        super();
     }
 
     public AbstractSubDocument(Long id) {

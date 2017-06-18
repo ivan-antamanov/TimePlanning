@@ -7,6 +7,10 @@ public abstract class AbstractMainDocument extends AbstractDocument {
 
     private AbstractSubDocument subDocument;
 
+    public AbstractMainDocument() {
+        super();
+    }
+
     public AbstractSubDocument getSubDocument() {
         return subDocument;
     }

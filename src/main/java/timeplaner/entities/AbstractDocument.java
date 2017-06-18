@@ -25,6 +25,7 @@ public class AbstractDocument implements Document, Serializable {
 
 
     public AbstractDocument() {
+        this("No Name", "Put description");
     }
 
     public AbstractDocument(Long id) {

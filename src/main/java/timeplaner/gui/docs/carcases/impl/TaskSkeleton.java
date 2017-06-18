@@ -28,13 +28,20 @@ public class TaskSkeleton extends AbstractSkeleton {
     private TextField taskPeriod = new TextField();
     private TextField linkedTask = new TextField();
 
-    private Button saveButton = new Button("Save Task");
+    private Button saveButton ;
 
+    public TaskSkeleton() {
+        super();
+
+    }
 
     @Override
     protected void registrationEvents() {
+        priorityChoiceBox = new ChoiceBox<>();
+        statusChoiceBox = new ChoiceBox<>();
         priorityChoiceBox.getItems().addAll(Priority.getAllNames());
         statusChoiceBox.getItems().addAll(Status.getAllNames());
+        saveButton = new Button("Save Task");
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             EventProcessor.send(new SaveTaskEvent());
         });
