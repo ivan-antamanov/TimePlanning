@@ -10,7 +10,6 @@ import java.text.ParseException;
 
 public class TaskController {
 
-
     private LocalSession localSession;
 
     public TaskController(LocalSession localSession) {

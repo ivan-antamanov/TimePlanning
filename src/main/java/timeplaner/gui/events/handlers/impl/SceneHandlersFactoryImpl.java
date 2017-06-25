@@ -3,7 +3,7 @@ package timeplaner.gui.events.handlers.impl;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import timeplaner.gui.docs.parents.GuiDocument;
+import timeplaner.gui.docs.parents.ParentDocument;
 import timeplaner.gui.events.ProjectEventHandler;
 import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.gui.events.handlers.SceneHandlersFactory;
@@ -24,7 +24,7 @@ public class SceneHandlersFactoryImpl implements SceneHandlersFactory {
 
     private void setAllDocsInvisible(Pane rootPane) {
         List<Node> documents = rootPane.getChildren().stream()
-                .filter(parent -> parent instanceof GuiDocument)
+                .filter(parent -> parent instanceof ParentDocument)
                 .collect(Collectors.toList());
         for (Node document : documents) {
             document.setVisible(false);

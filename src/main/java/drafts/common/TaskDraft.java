@@ -38,7 +38,7 @@ public class TaskDraft extends Application {
         Text nameLabel = new Text("Name");
         TextField nameText = new TextField(document.getName());
 
-        Text mainDocLabel = new Text("Main GuiDocument");
+        Text mainDocLabel = new Text("Main ParentDocument");
         TextField mainDocText = new TextField(); //todo check if document is present
 
         Text descriptionLabel = new Text("Description");
