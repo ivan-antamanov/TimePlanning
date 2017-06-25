@@ -22,5 +22,5 @@ public interface PlanSkeleton extends Skeleton {
 
     public Map<Text, Text> getChildDocInfoConstantMap(Task task);
 
-    public AbstractProject getDocument();
+//    public AbstractProject getDocument();
 }

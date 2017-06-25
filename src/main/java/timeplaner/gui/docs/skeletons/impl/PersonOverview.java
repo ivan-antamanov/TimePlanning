@@ -18,15 +18,14 @@ public class PersonOverview extends AbstractSkeleton {
     private Text gender;
 
 
-
     @Override
-    public Skeleton newSkeleton(AbstractDocument abstractDocument) {
-        return null;
+    public Skeleton newSkeleton(Document document) {
+        throw new UnsupportedOperationException("Operation newSkeleton not supported yet");
     }
 
     @Override
-    public Skeleton updateSkeleton(AbstractDocument abstractDocument) {
-        return null;
+    public Skeleton updateSkeleton(Document document) {
+        throw new UnsupportedOperationException("Operation newSkeleton not supported yet");
     }
 
 //    @Override

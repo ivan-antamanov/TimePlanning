@@ -3,12 +3,14 @@ package timeplaner.gui.docs.parents.impldoc;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import timeplaner.entities.Document;
 import timeplaner.entities.subdocuments.AbstractAction;
 import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.docs.parents.AbstractSubDocParent;
@@ -38,32 +40,28 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
     }
 
     @Override
-    public AbstractSubDocParent getDocParent() {
+    public Parent getDocParent() {
 //        skeleton.updateSkeleton(getDocument());
         this.getChildren().clear();
         this.getChildren().addAll(getGeneralPane());
         return this;
     }
 
-
-    public TaskParentImpl getTaskParent() {
-        skeleton.newSkeleton(new Task());
-        if (this.getChildren().isEmpty()) {
-            this.getChildren().addAll(getDocParent());
-            return this;
-        }
-        return this;
-    }
-
-    public Task getTaskFromNode() {
-        return (Task) skeleton.getDocument();
-    }
-
-    public TaskParentImpl updateTaskParent(Task task) {
-        skeleton.updateSkeleton(task);
+    @Override
+    public Parent updateDocParent(Document document) {
+        skeleton.updateSkeleton(document);
         this.getChildren().clear();
         this.getChildren().addAll(getDocParent());
         return this;
+    }
+
+    @Override
+    public void showSuccessDialog() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText(null);
+        alert.setContentText("I have a great message for you: Task was successfully created!");
+        alert.showAndWait();
     }
 
     private Pane customizeTaskPane() {
@@ -148,19 +146,5 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
         return bottomPane;
     }
 
-    @Override
-    public void showSuccessDialog() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Information Dialog");
-        alert.setHeaderText(null);
-        alert.setContentText("I have a great message for you: Task was successfully created!");
-        alert.showAndWait();
-    }
-
-    @Override
-    public AbstractSubDocParent updateTaskParent(AbstractAction action) {
-
-        return null;
-    }
 
 }

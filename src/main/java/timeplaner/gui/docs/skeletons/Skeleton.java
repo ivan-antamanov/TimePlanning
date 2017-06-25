@@ -1,15 +1,14 @@
 package timeplaner.gui.docs.skeletons;
 
 
-import timeplaner.entities.AbstractDocument;
 import timeplaner.entities.Document;
 
 public interface Skeleton {
 
-    public Skeleton newSkeleton(AbstractDocument abstractDocument);
+    public Skeleton newSkeleton(Document Document);
 
-    public Skeleton updateSkeleton(AbstractDocument abstractDocument);
+    public Skeleton updateSkeleton(Document document);
 
-//    public Document getDocument();
+    public Document getDocument();
 
 }

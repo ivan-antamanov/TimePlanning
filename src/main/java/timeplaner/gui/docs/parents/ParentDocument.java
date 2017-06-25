@@ -1,13 +1,17 @@
 package timeplaner.gui.docs.parents;
 
 
-import timeplaner.entities.subdocuments.AbstractAction;
+import javafx.scene.Parent;
+import timeplaner.entities.Document;
+import timeplaner.entities.subdocuments.DocumentAction;
 
 public interface ParentDocument {
 
-    public void showSuccessDialog();
+    public void showSuccessDialog(); //todo put to Utils
 
-    public AbstractSubDocParent updateTaskParent(AbstractAction action);
+    public Parent updateDocParent(Document document);
+
+    public Parent getDocParent();
 
     
 

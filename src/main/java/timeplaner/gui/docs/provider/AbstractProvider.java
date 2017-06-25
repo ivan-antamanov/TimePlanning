@@ -8,10 +8,10 @@ public abstract class AbstractProvider implements Provider {
     DocumentDao documentDao;
 
     public AbstractProvider() {
-        registrationEvents();
+//        registrationEvents();
     }
 
     protected abstract void registrationEvents();
 
-    protected abstract void showSuccessDialog();
+    protected abstract void showSuccessDialog(); //todo put to Utils
 }

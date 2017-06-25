@@ -6,12 +6,15 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import timeplaner.entities.AbstractDocument;
+import timeplaner.entities.Document;
 import timeplaner.entities.maindocuments.AbstractProject;
 import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.docs.skeletons.AbstractMainDocSkeleton;
 import timeplaner.gui.docs.skeletons.AbstractSkeleton;
 import timeplaner.gui.docs.skeletons.PlanSkeleton;
+import timeplaner.gui.docs.skeletons.Skeleton;
 import timeplaner.gui.events.EventProcessor;
+import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
 import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
 
@@ -41,13 +44,13 @@ public class PlanSkeletonImpl extends AbstractMainDocSkeleton implements PlanSke
     }
 
     @Override
-    public AbstractSkeleton newSkeleton(AbstractDocument abstractDocument) {
+    public Skeleton newSkeleton(Document document) {
         return new PlanSkeletonImpl();
     }
 
     @Override
-    public AbstractSkeleton updateSkeleton(AbstractDocument abstractDocument) {
-        return null;
+    public Skeleton updateSkeleton(Document document) {
+        throw new UnsupportedOperationException("Functionality Update document not Implemented yet");
     }
 
     @Override

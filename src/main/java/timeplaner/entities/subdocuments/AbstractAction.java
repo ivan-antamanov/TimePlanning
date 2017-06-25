@@ -6,7 +6,7 @@ import timeplaner.entities.auxiliary.Status;
 
 import java.util.List;
 
-public abstract class AbstractAction extends AbstractSubDocument {
+public abstract class AbstractAction extends AbstractSubDocument implements DocumentAction {
 //    private Reminder reminder todo realisation
     private Priority priority;
     private Status status;

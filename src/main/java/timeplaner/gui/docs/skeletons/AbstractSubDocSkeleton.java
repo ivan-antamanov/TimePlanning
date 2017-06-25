@@ -87,6 +87,7 @@ public abstract class AbstractSubDocSkeleton extends AbstractSkeleton implements
         List<Button> buttons = new ArrayList<>(0);
         customizeSaveButton(saveButton);
         buttons.add(saveButton);
+        buttons.add(backButton);
         return buttons;
     }
 

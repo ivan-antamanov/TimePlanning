@@ -26,7 +26,6 @@ public class PlanProviderImpl extends AbstractPlanProvider {
     }
 
 
-
     @Override
     protected void registrationEvents() {
 
@@ -34,6 +33,21 @@ public class PlanProviderImpl extends AbstractPlanProvider {
 
     @Override
     protected void showSuccessDialog() {
+        throw new UnsupportedOperationException("Operation showSuccessDialog not supported yet");
+    }
 
+    @Override
+    public Parent newNode() {
+        throw new UnsupportedOperationException("Operation newNode not supported yet");
+    }
+
+    @Override
+    public Parent updateNode(Document document) {
+        throw new UnsupportedOperationException("Operation updateNode not supported yet");
+    }
+
+    @Override
+    public Parent getNode() {
+        throw new UnsupportedOperationException("Operation updateNode not supported yet");
     }
 }

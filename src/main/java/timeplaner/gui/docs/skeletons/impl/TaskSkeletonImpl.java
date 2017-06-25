@@ -1,7 +1,11 @@
 package timeplaner.gui.docs.skeletons.impl;
 
 import timeplaner.entities.AbstractDocument;
+import timeplaner.entities.Document;
 import timeplaner.entities.subdocuments.AbstractAction;
+import timeplaner.gui.SceneFactory;
+import timeplaner.gui.docs.parents.PlanParent;
+import timeplaner.gui.docs.parents.impldoc.PlanParentImpl;
 import timeplaner.gui.docs.skeletons.AbstractSubDocSkeleton;
 import timeplaner.gui.docs.skeletons.Skeleton;
 import timeplaner.gui.docs.skeletons.SubDocSkeleton;
@@ -11,14 +15,15 @@ import timeplaner.entities.auxiliary.Status;
 import timeplaner.entities.subdocuments.impl.Task;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.gui.events.events.taskevents.SaveTaskEvent;
 
 public class TaskSkeletonImpl extends AbstractSubDocSkeleton implements SubDocSkeleton {
 
-    private Button saveButton ;
+//    private Button saveButton ;
 
     public TaskSkeletonImpl() {
-        super();
+        registrationEvents();
 
     }
 
@@ -32,23 +37,26 @@ public class TaskSkeletonImpl extends AbstractSubDocSkeleton implements SubDocSk
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             EventProcessor.send(new SaveTaskEvent());
         });
+        backButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
+                EventProcessor.send(new ChangeChildrenVisibilityEvent(PlanParentImpl.class, SceneFactory.INSTANCE.get())));
+
     }
 
     @Override
-    public Skeleton newSkeleton(AbstractDocument abstractDocument) {
-//        Task task = (Task) abstractDocument;
+    public Skeleton newSkeleton(Document document) {
+        Task task = (Task) document;
         name.clear();
 //        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
 //        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
         description.clear();
-        creationDate.setText(abstractDocument.getCreateDate().toString());
-        id.setText(String.valueOf(abstractDocument.getId()));
+        creationDate.setText(task.getCreateDate().toString());
+        id.setText(String.valueOf(task.getId()));
         return this;
     }
 
     @Override
-    public Skeleton updateSkeleton(AbstractDocument abstractDocument) {//fixme: not create new object
-        Task task = (Task) abstractDocument;
+    public Skeleton updateSkeleton(Document document) {//fixme: not create new object
+        Task task = (Task) document;
         name = new TextField(task.getName());
         priorityChoiceBox.getSelectionModel().select(  task.getPriority().getName());
         statusChoiceBox.getSelectionModel().select(task.getStatus().getName());

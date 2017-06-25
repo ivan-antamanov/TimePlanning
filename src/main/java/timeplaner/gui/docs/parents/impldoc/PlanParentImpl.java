@@ -3,13 +3,16 @@ package timeplaner.gui.docs.parents.impldoc;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import timeplaner.entities.Document;
 import timeplaner.entities.subdocuments.AbstractAction;
 import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.docs.parents.AbstractMainDocParent;
 import timeplaner.gui.docs.parents.AbstractSubDocParent;
+import timeplaner.gui.docs.parents.PlanParent;
 import timeplaner.gui.docs.skeletons.AbstractMainDocSkeleton;
 import timeplaner.gui.utils.BorderUtils;
 import timeplaner.gui.docs.parents.ParentDocument;
@@ -20,7 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class PlanParentImpl extends AbstractMainDocParent implements ParentDocument {
+public class PlanParentImpl extends AbstractMainDocParent implements PlanParent {
 
 
 //    PlanSkeletonImpl skeleton = new PlanSkeletonImpl();
@@ -93,11 +96,12 @@ public class PlanParentImpl extends AbstractMainDocParent implements ParentDocum
 
     @Override
     public void showSuccessDialog() {
-
+        throw new UnsupportedOperationException("Operation updateNode not supported yet");
     }
 
     @Override
-    public AbstractSubDocParent updateTaskParent(AbstractAction action) {
+    public Parent updateDocParent(Document document) {
         return null;
     }
+
 }

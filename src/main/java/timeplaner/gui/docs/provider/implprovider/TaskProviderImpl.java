@@ -1,8 +1,10 @@
 package timeplaner.gui.docs.provider.implprovider;
 
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import timeplaner.entities.Document;
-import timeplaner.gui.docs.parents.AbstractSubDocParent;
+import timeplaner.gui.SceneFactory;
+import timeplaner.gui.docs.parents.PlanParent;
 import timeplaner.gui.docs.parents.impldoc.TaskParentImpl;
 import timeplaner.gui.docs.provider.AbstractTaskProvider;
 import timeplaner.gui.docs.skeletons.impl.TaskSkeletonImpl;
@@ -18,7 +20,6 @@ import timeplaner.dao.LocalSession;
 import timeplaner.gui.events.handlers.SceneHandlersFactory;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.logging.Logger;
 
 
@@ -27,20 +28,45 @@ public class TaskProviderImpl extends AbstractTaskProvider {
     private Logger logger = Logger.getLogger(TaskProviderImpl.class.getName());
 
 
-    private Scene generalScene;
-    //    private TaskSkeletonImpl taskCascade = new TaskSkeletonImpl();
-//    private TaskParentImpl taskParentImpl = new TaskParentImpl();
+//    private Scene generalScene;
     private TaskController taskController;
 
     public TaskProviderImpl(LocalSession localSession, Scene generalScene) {
         taskParent = new TaskParentImpl(new TaskSkeletonImpl());
         taskController = new TaskController(localSession);
-        this.generalScene = generalScene;
+        registrationEvents();
+    }
+
+    @Override
+    public Parent newNode() {
+        return taskParent.getDocParent();
+    }
+
+    @Override
+    public Parent updateNode(Document document) {
+        return taskParent.updateDocParent(document);
+    }
+
+    @Override
+    public Parent getNode() {
+        return taskParent.getDocParent();
+    }
+
+    @Override
+    protected void registrationEvents() {
+//        this.generalScene = generalScene; //todo delete frome here
         EventProcessor.register(SaveTaskEvent.class, saveTaskHandler);
         EventProcessor.register(LoadTaskEvent.class, loadTaskHandler);
         EventProcessor.register(CreateTaskEvent.class, createTaskEventHandler);
         EventProcessor.register(ChangeChildrenVisibilityEvent.class, SceneHandlersFactory.INSTANCE.get().getVisibilityHandler());
+//        EventProcessor.register(ChangeChildrenVisibilityEvent.class, goBackEventHandler);
+        }
+
+    @Override
+    protected void showSuccessDialog() {
+        throw new UnsupportedOperationException("Operation showSuccessDialog not supported yet");
     }
+
 
     private ProjectEventHandler<SaveTaskEvent> saveTaskHandler = new ProjectEventHandler<SaveTaskEvent>() {
         @Override
@@ -62,7 +88,7 @@ public class TaskProviderImpl extends AbstractTaskProvider {
             logger.info("Button \"Load Task\" was pressed"); //fixme
             Task task = taskController.returnTaskById(event.getId()); //fixme: too long +addd validation for null and NumberFormatException
             updateTaskNode(task);
-            EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), generalScene));
+            EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), SceneFactory.INSTANCE.get()));
         }
     };
 
@@ -70,32 +96,22 @@ public class TaskProviderImpl extends AbstractTaskProvider {
         @Override
         public void handle(CreateTaskEvent event) {
             logger.info("Button \"Create new Task\" was pressed");
-            newTaskNode(); //fixme: too long +addd validation for null and NumberFormatException
-            EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), generalScene));
+            newNode(); //fixme: too long +addd validation for null and NumberFormatException
+            EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), SceneFactory.INSTANCE.get()));
         }
     };
 
-    private AbstractSubDocParent updateTaskNode(Task task) {
-        return taskParent.updateTaskParent(task);//fixme too long line
+    private ProjectEventHandler<ChangeChildrenVisibilityEvent> goBackEventHandler = new ProjectEventHandler<ChangeChildrenVisibilityEvent>() {
+        @Override
+        public void handle(ChangeChildrenVisibilityEvent event) {
+            logger.info("Button GoBack was pressed");
+            EventProcessor.send(new ChangeChildrenVisibilityEvent(PlanParent.class, SceneFactory.INSTANCE.get()));
+        }
+    };
 
+    private Parent updateTaskNode(Task task) {
+        return taskParent.updateDocParent(task);
     }
 
-    private AbstractSubDocParent newTaskNode() {
-        return taskParent.getDocParent();//fixme too long line
 
-    }
-
-    public AbstractSubDocParent getParent() {
-        return taskParent.getDocParent();
-    }
-
-    @Override
-    protected void registrationEvents() {
-
-    }
-
-    @Override
-    protected void showSuccessDialog() {
-
-    }
 }

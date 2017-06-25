@@ -5,6 +5,6 @@ import timeplaner.entities.maindocuments.AbstractProject;
 
 public interface ActionSkeleton {
 
-    public AbstractProject getDocument();
+//    public AbstractProject getDocument();
 }
 

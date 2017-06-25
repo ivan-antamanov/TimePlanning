@@ -15,7 +15,7 @@ public abstract class AbstractMainDocParent extends Parent implements PlanParent
 
     protected abstract Pane getGeneralPane();
 
-    public abstract AbstractMainDocParent getDocParent();
+//    public abstract Parent getDocParent();
 
     public Document getDocument(){
         return skeleton.getDocument();
