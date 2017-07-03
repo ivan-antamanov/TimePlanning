@@ -5,9 +5,8 @@ import timeplaner.entities.maindocuments.AbstractMainDocument;
 
 import java.io.Serializable;
 import java.time.*;
-import java.util.Date;
 
-public class AbstractDocument implements Document, Serializable {
+public class StubDocument implements DocumentModel, Serializable {
 
     private String name;
     private String description;
@@ -24,15 +23,15 @@ public class AbstractDocument implements Document, Serializable {
     private Type type;
 
 
-    public AbstractDocument() {
+    public StubDocument() {
         this("No Name", "Put description");
     }
 
-    public AbstractDocument(Long id) {
+    public StubDocument(Long id) {
         this.id = id;
     }
 
-    public AbstractDocument(String name, String description) {
+    public StubDocument(String name, String description) {
         this.name = name;
         this.description = description;
         createDate = LocalDate.now();

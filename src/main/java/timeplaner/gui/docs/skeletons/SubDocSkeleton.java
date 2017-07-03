@@ -1,15 +1,12 @@
 package timeplaner.gui.docs.skeletons;
 
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.text.Text;
-import timeplaner.entities.maindocuments.AbstractProject;
 import timeplaner.entities.subdocuments.AbstractAction;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

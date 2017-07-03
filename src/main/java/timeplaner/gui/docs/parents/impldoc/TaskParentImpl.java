@@ -10,9 +10,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.entities.Document;
-import timeplaner.entities.subdocuments.AbstractAction;
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.DocumentModel;
 import timeplaner.gui.docs.parents.AbstractSubDocParent;
 import timeplaner.gui.docs.parents.ParentDocument;
 import timeplaner.gui.docs.skeletons.SubDocSkeleton;
@@ -48,8 +46,8 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
     }
 
     @Override
-    public Parent updateDocParent(Document document) {
-        skeleton.updateSkeleton(document);
+    public Parent updateDocParent(DocumentModel documentModel) {
+        skeleton.updateSkeleton(documentModel);
         this.getChildren().clear();
         this.getChildren().addAll(getDocParent());
         return this;

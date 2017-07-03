@@ -5,18 +5,15 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import timeplaner.entities.AbstractDocument;
-import timeplaner.entities.Document;
-import timeplaner.entities.maindocuments.AbstractProject;
+import timeplaner.entities.DocumentModel;
+import timeplaner.entities.maindocuments.AbstractPlan;
 import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.docs.skeletons.AbstractMainDocSkeleton;
-import timeplaner.gui.docs.skeletons.AbstractSkeleton;
 import timeplaner.gui.docs.skeletons.PlanSkeleton;
 import timeplaner.gui.docs.skeletons.Skeleton;
 import timeplaner.gui.events.EventProcessor;
-import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
-import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
+import timeplaner.gui.events.events.taskevents.LoadDocumentEvent;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -40,21 +37,21 @@ public class PlanSkeletonImpl extends AbstractMainDocSkeleton implements PlanSke
         deleteButton = new Button("Delete Task");
         createButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> EventProcessor.send(new CreateTaskEvent()));
         loadButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                EventProcessor.send(new LoadTaskEvent(Long.valueOf(taskIdText.getText()))));
+                EventProcessor.send(new LoadDocumentEvent(Long.valueOf(taskIdText.getText()))));
     }
 
     @Override
-    public Skeleton newSkeleton(Document document) {
+    public Skeleton newSkeleton(DocumentModel documentModel) {
         return new PlanSkeletonImpl();
     }
 
     @Override
-    public Skeleton updateSkeleton(Document document) {
-        throw new UnsupportedOperationException("Functionality Update document not Implemented yet");
+    public Skeleton updateSkeleton(DocumentModel documentModel) {
+        throw new UnsupportedOperationException("Functionality Update documentModel not Implemented yet");
     }
 
     @Override
-    public AbstractProject getDocument() {
+    public AbstractPlan getDocument() {
         throw new UnsupportedOperationException("Functionality Update document not Implemented yet");
         //need todo implementation;
     }

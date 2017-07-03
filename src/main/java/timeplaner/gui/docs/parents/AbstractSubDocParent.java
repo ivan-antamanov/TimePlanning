@@ -3,8 +3,7 @@ package timeplaner.gui.docs.parents;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import timeplaner.entities.Document;
-import timeplaner.entities.subdocuments.AbstractAction;
+import timeplaner.entities.DocumentModel;
 import timeplaner.gui.docs.skeletons.SubDocSkeleton;
 
 public abstract class AbstractSubDocParent extends Parent implements ParentDocument {
@@ -17,7 +16,7 @@ public abstract class AbstractSubDocParent extends Parent implements ParentDocum
 
     protected abstract Pane getGeneralPane();
 
-    public Document getDocument(){
+    public DocumentModel getDocument(){
         return skeleton.getDocument();
     }
 

@@ -5,7 +5,7 @@ import timeplaner.entities.subdocuments.impl.Aim;
 import java.util.List;
 
 
-public abstract class AbstractProject extends AbstractMainDocument {
+public abstract class AbstractPlan extends AbstractMainDocument {
     private Aim aim;
     private List<Aim> aims;
 

@@ -1,4 +1,4 @@
-package timeplaner.dao;
+package timeplaner.dao.TODELETE;
 
 import timeplaner.entities.subdocuments.AbstractAction;
 import timeplaner.entities.subdocuments.impl.Task;
@@ -22,7 +22,6 @@ public class LocalSession {
     private ObjectInputStream loadObjectStream;
     private FileInputStream loadFileStream;
     private FileOutputStream saveFileStream;
-
 
     public Task findTaskById(Long taskId) throws ParseException, IOException, ClassNotFoundException {
         System.out.println("Try to GET task by id: " + taskId);

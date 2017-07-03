@@ -1,7 +1,12 @@
 package timeplaner.bo;
 
 
-import timeplaner.dao.LocalSession;
+import timeplaner.dao.DocumentDao;
+import timeplaner.dao.SessionFactory;
+import timeplaner.dao.TODELETE.LocalSession;
+import timeplaner.dao.TODELETE.TaskDao;
+import timeplaner.dao.impl.TaskDaoImpl;
+import timeplaner.entities.DocumentModel;
 import timeplaner.entities.subdocuments.impl.Task;
 
 import java.io.IOException;
@@ -10,37 +15,26 @@ import java.text.ParseException;
 
 public class TaskController {
 
-    private LocalSession localSession;
+//    private SessionFactory localSession;
+    private TaskDaoImpl taskDao;
 
-    public TaskController(LocalSession localSession) {
-        this.localSession = localSession;
+
+    public TaskController(SessionFactory localSession) {
+        this.taskDao = new TaskDaoImpl(localSession) ;
     }
 
-    private Task getTaskById(Long taskId) {
-        try {
-            try {
-                return localSession.findTaskById(taskId);
-            } catch (IOException e) {
-                System.out.println("Task with Id: " + taskId + " was not found");
-            } catch (ClassNotFoundException e) {
-                System.out.println("Not correct type for Id: " + taskId);
-            }
-        } catch (ParseException e) {
-            System.out.println("task was not found");
-        }
-        return null;
+    private Task getTaskById(Task task) {
+        return taskDao.read(task);
     }
 
-    public Task returnTaskById(Long taskId) {
-        return getTaskById(taskId);
+    public Task returnTaskById(Task task) {
+        return getTaskById(task);
 
     }
 
-    public void saveTask(Task task) throws IOException {
-
-        System.out.println("Try to save task with Id:" + task.getId());
-        localSession.saveTask(task);
-
+    public void saveTask(Task task) {
+//        System.out.println("Try to save task with Id:" + task.getId());
+          taskDao.update(task);
     }
 
 }

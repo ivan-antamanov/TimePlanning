@@ -3,7 +3,6 @@ package timeplaner.gui.docs.skeletons;
 
 import javafx.scene.control.Control;
 import javafx.scene.text.Text;
-import timeplaner.entities.maindocuments.AbstractProject;
 import timeplaner.entities.subdocuments.impl.Task;
 
 import java.util.List;
@@ -22,5 +21,5 @@ public interface PlanSkeleton extends Skeleton {
 
     public Map<Text, Text> getChildDocInfoConstantMap(Task task);
 
-//    public AbstractProject getDocument();
+//    public AbstractPlan getDocument();
 }

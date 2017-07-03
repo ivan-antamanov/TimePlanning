@@ -13,7 +13,7 @@ public enum LabelFields {
     CREATION_DATE_LABEL("Creation Date:"),
     PERIOD_LABEL("Period:"),
     LINKED_TASK_LABEL("Linked Task:"),
-    MAIN_DOC_LABEL("Main Document:"),
+    MAIN_DOC_LABEL("Main DocumentModel:"),
     ID_LABEL("ID:"),
     TASK_LIST("List of Task"),
     ;

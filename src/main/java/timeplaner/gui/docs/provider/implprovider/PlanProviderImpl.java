@@ -4,19 +4,18 @@ package timeplaner.gui.docs.provider.implprovider;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import timeplaner.bo.PlanController;
-import timeplaner.entities.Document;
+import timeplaner.dao.SessionFactory;
+import timeplaner.entities.DocumentModel;
 import timeplaner.gui.docs.parents.impldoc.PlanParentImpl;
-import timeplaner.dao.LocalSession;
+import timeplaner.dao.TODELETE.LocalSession;
 import timeplaner.gui.docs.provider.AbstractPlanProvider;
 import timeplaner.gui.docs.skeletons.impl.PlanSkeletonImpl;
-
-import java.util.List;
 
 public class PlanProviderImpl extends AbstractPlanProvider {
 
     PlanController planController;
 
-    public PlanProviderImpl(LocalSession localSession, Scene generalScene) {
+    public PlanProviderImpl(SessionFactory localSession) {
         planParent = new PlanParentImpl(new PlanSkeletonImpl());
         planController = new PlanController(localSession);
     }
@@ -42,7 +41,7 @@ public class PlanProviderImpl extends AbstractPlanProvider {
     }
 
     @Override
-    public Parent updateNode(Document document) {
+    public Parent updateNode(DocumentModel documentModel) {
         throw new UnsupportedOperationException("Operation updateNode not supported yet");
     }
 

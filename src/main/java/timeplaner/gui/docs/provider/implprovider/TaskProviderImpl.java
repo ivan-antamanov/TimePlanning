@@ -1,25 +1,23 @@
 package timeplaner.gui.docs.provider.implprovider;
 
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import timeplaner.entities.Document;
+import timeplaner.bo.TaskController;
+import timeplaner.dao.SessionFactory;
+import timeplaner.entities.DocumentModel;
+import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.SceneFactory;
 import timeplaner.gui.docs.parents.PlanParent;
 import timeplaner.gui.docs.parents.impldoc.TaskParentImpl;
 import timeplaner.gui.docs.provider.AbstractTaskProvider;
 import timeplaner.gui.docs.skeletons.impl.TaskSkeletonImpl;
-import timeplaner.gui.events.ProjectEventHandler;
 import timeplaner.gui.events.EventProcessor;
+import timeplaner.gui.events.ProjectEventHandler;
 import timeplaner.gui.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
-import timeplaner.gui.events.events.taskevents.LoadTaskEvent;
+import timeplaner.gui.events.events.taskevents.LoadDocumentEvent;
 import timeplaner.gui.events.events.taskevents.SaveTaskEvent;
-import timeplaner.bo.TaskController;
-import timeplaner.entities.subdocuments.impl.Task;
-import timeplaner.dao.LocalSession;
 import timeplaner.gui.events.handlers.SceneHandlersFactory;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 
@@ -27,11 +25,9 @@ public class TaskProviderImpl extends AbstractTaskProvider {
 
     private Logger logger = Logger.getLogger(TaskProviderImpl.class.getName());
 
-
-//    private Scene generalScene;
     private TaskController taskController;
 
-    public TaskProviderImpl(LocalSession localSession, Scene generalScene) {
+    public TaskProviderImpl(SessionFactory localSession) {
         taskParent = new TaskParentImpl(new TaskSkeletonImpl());
         taskController = new TaskController(localSession);
         registrationEvents();
@@ -43,8 +39,8 @@ public class TaskProviderImpl extends AbstractTaskProvider {
     }
 
     @Override
-    public Parent updateNode(Document document) {
-        return taskParent.updateDocParent(document);
+    public Parent updateNode(DocumentModel documentModel) {
+        return taskParent.updateDocParent(documentModel);
     }
 
     @Override
@@ -54,9 +50,9 @@ public class TaskProviderImpl extends AbstractTaskProvider {
 
     @Override
     protected void registrationEvents() {
-//        this.generalScene = generalScene; //todo delete frome here
+//        this.generalScene = generalScene; //todo delete from here
         EventProcessor.register(SaveTaskEvent.class, saveTaskHandler);
-        EventProcessor.register(LoadTaskEvent.class, loadTaskHandler);
+        EventProcessor.register(LoadDocumentEvent.class, loadTaskHandler);
         EventProcessor.register(CreateTaskEvent.class, createTaskEventHandler);
         EventProcessor.register(ChangeChildrenVisibilityEvent.class, SceneHandlersFactory.INSTANCE.get().getVisibilityHandler());
 //        EventProcessor.register(ChangeChildrenVisibilityEvent.class, goBackEventHandler);
@@ -73,20 +69,16 @@ public class TaskProviderImpl extends AbstractTaskProvider {
         public void handle(SaveTaskEvent event) {
             Task task = (Task) taskParent.getDocument();
             logger.info("Try to save Task with Id: " + task.getId()); //todo as logger
-            try {
-                taskController.saveTask(task);
-                taskParent.showSuccessDialog();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            taskController.saveTask(task);
+            taskParent.showSuccessDialog();
         }
     };
 
-    ProjectEventHandler<LoadTaskEvent> loadTaskHandler = new ProjectEventHandler<LoadTaskEvent>() {
+    ProjectEventHandler<LoadDocumentEvent> loadTaskHandler = new ProjectEventHandler<LoadDocumentEvent>() {
         @Override
-        public void handle(LoadTaskEvent event) {
+        public void handle(LoadDocumentEvent event) {
             logger.info("Button \"Load Task\" was pressed"); //fixme
-            Task task = taskController.returnTaskById(event.getId()); //fixme: too long +addd validation for null and NumberFormatException
+            Task task = taskController.returnTaskById((Task) event.getDocument()); //fixme: too long +addd validation for null and NumberFormatException
             updateTaskNode(task);
             EventProcessor.send(new ChangeChildrenVisibilityEvent(taskParent.getClass(), SceneFactory.INSTANCE.get()));
         }

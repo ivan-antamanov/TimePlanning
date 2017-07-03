@@ -1,11 +1,9 @@
 package timeplaner.entities;
 
 
-import timeplaner.entities.maindocuments.impl.Project;
-
 public enum Type {
 
-    PROJECT("Project", true),
+    PROJECT("Plan", true),
     TASK("Task", false),
 
 

@@ -1,9 +1,9 @@
 package timeplaner.entities.maindocuments;
 
-import timeplaner.entities.AbstractDocument;
+import timeplaner.entities.StubDocument;
 import timeplaner.entities.subdocuments.AbstractSubDocument;
 
-public abstract class AbstractMainDocument extends AbstractDocument {
+public abstract class AbstractMainDocument extends StubDocument {
 
     private AbstractSubDocument subDocument;
 

@@ -1,11 +1,11 @@
 package timeplaner.bo;
 
-import timeplaner.entities.Document;
+import timeplaner.entities.DocumentModel;
 
 public interface Controller {
 
-    Document getDocumentById();
-    void saveDocument(Document document);
+    DocumentModel getDocumentById();
+    void saveDocument(DocumentModel documentModel);
     void deleteDocument();
     void updateDocument();
     void getAllDocuments();

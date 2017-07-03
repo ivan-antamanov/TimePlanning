@@ -1,18 +1,19 @@
 package timeplaner.dao;
 
 
-import timeplaner.entities.Document;
+import timeplaner.entities.DocumentModel;
 
 import java.util.List;
 
-public interface DocumentDao {
-    public void createDocument(Document document) throws Exception;
+public interface DocumentDao<T extends DocumentModel> {
 
-    public Document readDocument(Document document) throws Exception;
+    public T create(T document);
 
-    public Document updateDocument(Document document) throws Exception;
+    public T read(T document);
 
-    public void deleteDocument(Document document) throws Exception;
+    public T update(T document);
 
-    public List<Document> getAllDocuments() throws Exception;
+    public T delete(T document);
+
+    public List<T> findAll();
 }

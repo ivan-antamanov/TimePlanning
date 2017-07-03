@@ -1,7 +1,7 @@
 package timeplaner.entities.subdocuments;
 
 
-import timeplaner.entities.Document;
+import timeplaner.entities.DocumentModel;
 
-public interface DocumentAction extends Document {
+public interface DocumentAction extends DocumentModel {
 }

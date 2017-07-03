@@ -2,7 +2,7 @@ package timeplaner.gui.docs.parents;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
-import timeplaner.entities.Document;
+import timeplaner.entities.DocumentModel;
 import timeplaner.gui.docs.skeletons.PlanSkeleton;
 
 public abstract class AbstractMainDocParent extends Parent implements PlanParent,ParentDocument {
@@ -17,7 +17,7 @@ public abstract class AbstractMainDocParent extends Parent implements PlanParent
 
 //    public abstract Parent getDocParent();
 
-    public Document getDocument(){
+    public DocumentModel getDocument(){
         return skeleton.getDocument();
     }
 

@@ -32,7 +32,7 @@ public abstract class AbstractSubDocSkeleton extends AbstractSkeleton implements
         Hyperlink mainProjectHypLink = new Hyperlink();
         Hyperlink taskNameHypLink = new Hyperlink();
         if (isBlank.test(mainDocument.getText())) {
-            mainProjectHypLink.setText("No Main Project");
+            mainProjectHypLink.setText("No Main Plan");
         } else {
             mainProjectHypLink.setText(mainDocument.getText());
         }

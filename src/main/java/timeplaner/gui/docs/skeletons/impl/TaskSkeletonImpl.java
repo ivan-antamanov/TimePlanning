@@ -1,10 +1,8 @@
 package timeplaner.gui.docs.skeletons.impl;
 
-import timeplaner.entities.AbstractDocument;
-import timeplaner.entities.Document;
+import timeplaner.entities.DocumentModel;
 import timeplaner.entities.subdocuments.AbstractAction;
 import timeplaner.gui.SceneFactory;
-import timeplaner.gui.docs.parents.PlanParent;
 import timeplaner.gui.docs.parents.impldoc.PlanParentImpl;
 import timeplaner.gui.docs.skeletons.AbstractSubDocSkeleton;
 import timeplaner.gui.docs.skeletons.Skeleton;
@@ -43,8 +41,8 @@ public class TaskSkeletonImpl extends AbstractSubDocSkeleton implements SubDocSk
     }
 
     @Override
-    public Skeleton newSkeleton(Document document) {
-        Task task = (Task) document;
+    public Skeleton newSkeleton(DocumentModel documentModel) {
+        Task task = (Task) documentModel;
         name.clear();
 //        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
 //        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
@@ -55,8 +53,8 @@ public class TaskSkeletonImpl extends AbstractSubDocSkeleton implements SubDocSk
     }
 
     @Override
-    public Skeleton updateSkeleton(Document document) {//fixme: not create new object
-        Task task = (Task) document;
+    public Skeleton updateSkeleton(DocumentModel documentModel) {//fixme: not create new object
+        Task task = (Task) documentModel;
         name = new TextField(task.getName());
         priorityChoiceBox.getSelectionModel().select(  task.getPriority().getName());
         statusChoiceBox.getSelectionModel().select(task.getStatus().getName());
@@ -78,7 +76,7 @@ public class TaskSkeletonImpl extends AbstractSubDocSkeleton implements SubDocSk
 
 //    public void addSaveEvent(ProjectEventHandler saveEvent){
 //        saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-//            EventProcessor.send(new LoadTaskEvent(Long.parseLong(taskId.getText())));
+//            EventProcessor.send(new LoadDocumentEvent(Long.parseLong(taskId.getText())));
 //        });
 //    }
 

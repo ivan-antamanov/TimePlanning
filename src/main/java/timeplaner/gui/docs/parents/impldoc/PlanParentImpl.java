@@ -7,15 +7,12 @@ import javafx.scene.Parent;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.entities.Document;
-import timeplaner.entities.subdocuments.AbstractAction;
+import timeplaner.entities.DocumentModel;
 import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.docs.parents.AbstractMainDocParent;
-import timeplaner.gui.docs.parents.AbstractSubDocParent;
 import timeplaner.gui.docs.parents.PlanParent;
 import timeplaner.gui.docs.skeletons.AbstractMainDocSkeleton;
 import timeplaner.gui.utils.BorderUtils;
-import timeplaner.gui.docs.parents.ParentDocument;
 import timeplaner.gui.utils.ParentUtils;
 
 import java.util.Arrays;
@@ -100,7 +97,7 @@ public class PlanParentImpl extends AbstractMainDocParent implements PlanParent 
     }
 
     @Override
-    public Parent updateDocParent(Document document) {
+    public Parent updateDocParent(DocumentModel documentModel) {
         return null;
     }
 
