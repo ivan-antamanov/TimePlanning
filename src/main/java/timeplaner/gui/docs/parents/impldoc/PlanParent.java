@@ -1,17 +1,17 @@
 package timeplaner.gui.docs.parents.impldoc;
 
-
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.Control;
-import javafx.scene.layout.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import timeplaner.entities.DocumentModel;
+import timeplaner.entities.maindocuments.impl.Plan;
 import timeplaner.entities.subdocuments.impl.Task;
-import timeplaner.gui.docs.parents.AbstractMainDocParent;
-import timeplaner.gui.docs.parents.PlanParent;
-import timeplaner.gui.docs.skeletons.AbstractMainDocSkeleton;
+import timeplaner.gui.docs.parents.AbstractDocParent;
+import timeplaner.gui.docs.skeletons.impl.PlanSkeleton;
 import timeplaner.gui.utils.BorderUtils;
 import timeplaner.gui.utils.ParentUtils;
 
@@ -20,12 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 
-public class PlanParentImpl extends AbstractMainDocParent implements PlanParent {
+public class PlanParent extends AbstractDocParent<Plan, PlanSkeleton, PlanParent> {
 
-
-//    PlanSkeletonImpl skeleton = new PlanSkeletonImpl();
-
-    public PlanParentImpl(AbstractMainDocSkeleton skeleton) {
+    public PlanParent(PlanSkeleton skeleton) {
         super(skeleton);
     }
 
@@ -35,20 +32,22 @@ public class PlanParentImpl extends AbstractMainDocParent implements PlanParent 
     }
 
     @Override
-    public AbstractMainDocParent getDocParent() {
-        VBox left = new VBox();
-        left.getChildren().addAll(getPlanInfoParent(), getTaskInfoParent(new Task())); //todo rebuild
+    public PlanParent getDocParent() {
+        if(this.getChildren().isEmpty()) {
+            VBox left = new VBox();
+            left.getChildren().addAll(getPlanInfoParent(), getTaskInfoParent(new Task())); //todo rebuild
 
-        VBox right = new VBox();
-        right.getChildren().addAll(getTaskList(skeleton.getTaskList()), returnButtonPlanParent(skeleton.getButtonBottom()));
-        skeleton.updateTaskList(Arrays.asList("First task", "Second Task"));
-        HBox all = new HBox();
-        all.getChildren().addAll(left, right);
-        all.setAlignment(Pos.CENTER);
+            VBox right = new VBox();
+            right.getChildren().addAll(getTaskList(skeleton.getTaskList()), returnButtonPlanParent(skeleton.getButtonBottom()));
+            skeleton.updateTaskList(Arrays.asList("First task", "Second Task"));
+            HBox all = new HBox();
+            all.getChildren().addAll(left, right);
+            all.setAlignment(Pos.CENTER);
 //        all.setMinSize(700, 1700); //all.setMinSize(700, 400);
 
 //        all.setMaxSize(820, 1820);
-        this.getChildren().addAll(all);
+            this.getChildren().addAll(all);
+        }
         return this;
 
     }
@@ -97,7 +96,7 @@ public class PlanParentImpl extends AbstractMainDocParent implements PlanParent 
     }
 
     @Override
-    public Parent updateDocParent(DocumentModel documentModel) {
+    public PlanParent updateDocParent(Plan plan) {
         return null;
     }
 

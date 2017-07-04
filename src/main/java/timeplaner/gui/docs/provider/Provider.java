@@ -3,8 +3,9 @@ package timeplaner.gui.docs.provider;
 
 import javafx.scene.Parent;
 import timeplaner.entities.DocumentModel;
+import timeplaner.gui.docs.parents.AbstractDocParent;
 
-public interface Provider {
+public interface Provider<T extends AbstractDocParent, V extends DocumentModel> {
 
 //    public void registrationEvents();
 
@@ -18,11 +19,11 @@ public interface Provider {
 //
 //    public List<DocumentModel> getAllDocuments() throws Exception;
 
-    public Parent newNode();
+    public T newNode();
 
-    public Parent updateNode(DocumentModel documentModel);
+    public T updateNode(V documentModel);
 
-    public Parent getNode();
+    public T getNode();
 
 
 }

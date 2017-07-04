@@ -3,29 +3,23 @@ package timeplaner.gui.docs.parents.impldoc;
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
-import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.entities.DocumentModel;
-import timeplaner.gui.docs.parents.AbstractSubDocParent;
-import timeplaner.gui.docs.parents.ParentDocument;
-import timeplaner.gui.docs.skeletons.SubDocSkeleton;
+import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.gui.docs.parents.AbstractDocParent;
+import timeplaner.gui.docs.skeletons.impl.TaskSkeleton;
 import timeplaner.gui.utils.BorderUtils;
 import timeplaner.gui.utils.ParentUtils;
 
 import java.util.List;
 import java.util.Map;
 
-import static timeplaner.gui.utils.LabelFields.RIGHT_SLASH;
+public class TaskParent extends AbstractDocParent<Task, TaskSkeleton, TaskParent> {
 
-public class TaskParentImpl extends AbstractSubDocParent implements ParentDocument {
-
-
-    public TaskParentImpl(SubDocSkeleton skeleton) {
+    public TaskParent(TaskSkeleton skeleton) {
         super(skeleton);
     }
 
@@ -38,16 +32,18 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
     }
 
     @Override
-    public Parent getDocParent() {
+    public TaskParent getDocParent() {
 //        skeleton.updateSkeleton(getDocument());
-        this.getChildren().clear();
-        this.getChildren().addAll(getGeneralPane());
+        if( this.getChildren().isEmpty()) {
+            this.getChildren().clear();
+            this.getChildren().addAll(getGeneralPane());
+        }
         return this;
     }
 
     @Override
-    public Parent updateDocParent(DocumentModel documentModel) {
-        skeleton.updateSkeleton(documentModel);
+    public TaskParent updateDocParent(Task task) {
+        skeleton.updateSkeleton(task);
         this.getChildren().clear();
         this.getChildren().addAll(getDocParent());
         return this;
@@ -71,7 +67,7 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
         BorderPane generalPane = new BorderPane();
 
         generalPane.setBorder(BorderUtils.getOtherTaskBorder());
-        Pane topPane = getTopPane(skeleton.getHyperLinkTop());
+        Pane topPane = ParentUtils.getTopPane(skeleton.getDocument(), skeleton.getBackButton());
         Pane leftInfoPane = ParentUtils.getInfoPane(skeleton.getLabelAndControlMapLeft(), skeleton.getConstantLabelsMap());
         Pane centerPane = getCenterPane(skeleton.getLabelAndControlMapCenter());
         Pane bottomPane = getBottomPane(skeleton.getLabelAndControlMapBottom());
@@ -87,17 +83,7 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
         return generalPane;
     }
 
-    private Pane getTopPane(List<Hyperlink> hyperLinkTop) {
-        FlowPane topPane = (FlowPane) returnHyperLinkTopPane();
-        topPane.getChildren().addAll(hyperLinkTop.get(0), RIGHT_SLASH.getTextLabel(), hyperLinkTop.get(1));
-        return topPane;
-    }
 
-    private Pane returnHyperLinkTopPane() {
-        FlowPane topPane = new FlowPane();
-        topPane.setOrientation(Orientation.HORIZONTAL);
-        return topPane;
-    }
 
     private Pane getCenterPane(Map<Text, Control> textControlMap) {
         FlowPane centerPane = customizeAndCreateCenterPane();
@@ -143,6 +129,5 @@ public class TaskParentImpl extends AbstractSubDocParent implements ParentDocume
         bottomPane.setBorder(BorderUtils.getTaskBorder());
         return bottomPane;
     }
-
 
 }

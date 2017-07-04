@@ -1,7 +1,9 @@
 package timeplaner.entities;
 
 
-public class Person {
+import timeplaner.entities.maindocuments.AbstractMainDocument;
+
+public class Person extends AbstractMainDocument {
 
     String name;
     String surName;

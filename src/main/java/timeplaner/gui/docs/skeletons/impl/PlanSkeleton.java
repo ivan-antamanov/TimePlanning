@@ -5,28 +5,31 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import timeplaner.entities.DocumentModel;
-import timeplaner.entities.maindocuments.AbstractPlan;
+import timeplaner.entities.maindocuments.impl.Plan;
 import timeplaner.entities.subdocuments.impl.Task;
-import timeplaner.gui.docs.skeletons.AbstractMainDocSkeleton;
-import timeplaner.gui.docs.skeletons.PlanSkeleton;
-import timeplaner.gui.docs.skeletons.Skeleton;
+import timeplaner.gui.docs.skeletons.AbstractSkeleton;
 import timeplaner.gui.events.EventProcessor;
 import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
 import timeplaner.gui.events.events.taskevents.LoadDocumentEvent;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import static timeplaner.gui.utils.LabelFields.*;
 
-public class PlanSkeletonImpl extends AbstractMainDocSkeleton implements PlanSkeleton {
+public class PlanSkeleton extends AbstractSkeleton<PlanSkeleton, Plan> {
+
+    protected ListView<String> docList = new ListView<>();
+    protected Button loadButton;
+    protected Button createButton;
+    protected Button deleteButton;
 
     private Hyperlink mainDocument = new Hyperlink();
-
     private TextField taskIdText = new TextField("0");
 
-    public PlanSkeletonImpl() {
+    public PlanSkeleton() {
         super();
     }
 
@@ -41,17 +44,17 @@ public class PlanSkeletonImpl extends AbstractMainDocSkeleton implements PlanSke
     }
 
     @Override
-    public Skeleton newSkeleton(DocumentModel documentModel) {
-        return new PlanSkeletonImpl();
+    public PlanSkeleton newSkeleton(Plan documentModel) {
+        return new PlanSkeleton();
     }
 
     @Override
-    public Skeleton updateSkeleton(DocumentModel documentModel) {
+    public PlanSkeleton updateSkeleton(Plan documentModel) {
         throw new UnsupportedOperationException("Functionality Update documentModel not Implemented yet");
     }
 
     @Override
-    public AbstractPlan getDocument() {
+    public Plan getDocument() {
         throw new UnsupportedOperationException("Functionality Update document not Implemented yet");
         //need todo implementation;
     }
@@ -84,15 +87,27 @@ public class PlanSkeletonImpl extends AbstractMainDocSkeleton implements PlanSke
         return planInfoMap;
     }
 
-//    private Button customizeLoadButton(Button loadButton) {
-//        loadButton.setAlignment(Pos.BOTTOM_RIGHT);
-//        return loadButton;
-//    }
-//
-//    private Button customizeCreateTaskButton(Button createTaskButton) {
-//        createTaskButton.setAlignment(Pos.BOTTOM_RIGHT);
-//        return createTaskButton;
-//    }
+    public Map<Text, Control> getTaskList(){
+        Map<Text, Control> tasksInfoMap = new LinkedHashMap<>();
+        tasksInfoMap.putIfAbsent(TASK_LIST.getTextLabel(), docList);
+        docList.setMaxHeight(300);
+        return tasksInfoMap;
+    }
+
+
+    public void updateTaskList(List<String> projectsTask){
+        docList.getItems().addAll(projectsTask);
+    }
+
+    public List<Control> getButtonBottom() { //fixme there should be only buttons
+        List<Control> controls = new ArrayList<>(0);
+//        customizeCreateTaskButton(createButton);
+//        customizeLoadButton(loadButton);
+        controls.add(createButton);
+        controls.add(loadButton);
+        controls.add(deleteButton);
+        return controls;
+    }
 
     public void setCreateTaskEventHandler(EventHandler eventCreateTask) {
         createButton.addEventHandler(MouseEvent.MOUSE_CLICKED, eventCreateTask);

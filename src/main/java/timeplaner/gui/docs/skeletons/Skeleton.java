@@ -3,12 +3,12 @@ package timeplaner.gui.docs.skeletons;
 
 import timeplaner.entities.DocumentModel;
 
-public interface Skeleton {
+public interface Skeleton<T extends Skeleton, V extends DocumentModel> {
 
-    public Skeleton newSkeleton(DocumentModel DocumentModel);
+    public T newSkeleton(V documentModel);
 
-    public Skeleton updateSkeleton(DocumentModel documentModel);
+    public T updateSkeleton(V documentModel);
 
-    public DocumentModel getDocument();
+    public V getDocument();
 
 }

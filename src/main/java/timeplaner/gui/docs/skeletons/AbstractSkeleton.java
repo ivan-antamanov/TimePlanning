@@ -1,12 +1,14 @@
 package timeplaner.gui.docs.skeletons;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import timeplaner.entities.DocumentModel;
 
 
-public abstract class AbstractSkeleton implements Skeleton {
+public abstract class AbstractSkeleton<T extends Skeleton, V extends DocumentModel> implements Skeleton<T,V> {
 
     protected TextField name;
     protected Text id;
@@ -25,4 +27,8 @@ public abstract class AbstractSkeleton implements Skeleton {
 
     protected abstract void registrationEvents();
 
+    public Button getBackButton() {
+        backButton.setAlignment(Pos.BASELINE_RIGHT);
+        return backButton;
+    }
 }

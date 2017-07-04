@@ -1,14 +1,13 @@
 package timeplaner.dao.impl;
 
 
-import timeplaner.dao.DocumentDao;
-import timeplaner.dao.ProjectSessionSetter;
+import timeplaner.dao.AbstractSessionFactory;
 import timeplaner.dao.SessionFactory;
 import timeplaner.entities.maindocuments.impl.Plan;
 
 import java.util.List;
 
-public class PlanDaoImpl extends ProjectSessionSetter implements DocumentDao<Plan> {
+public class PlanDaoImpl extends AbstractSessionFactory<Plan> {
 
     public PlanDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);

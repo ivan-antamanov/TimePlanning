@@ -5,10 +5,10 @@ import javafx.stage.Stage;
 import timeplaner.dao.LocalSessionFactoryImpl;
 import timeplaner.gui.SceneFactory;
 import timeplaner.gui.docs.parents.implpanel.MenuPanel;
+import timeplaner.gui.docs.provider.implprovider.TaskProvider;
 import timeplaner.gui.events.handlers.SceneHandlersFactory;
 import timeplaner.gui.events.handlers.impl.SceneHandlersFactoryImpl;
-import timeplaner.gui.docs.provider.implprovider.PlanProviderImpl;
-import timeplaner.gui.docs.provider.implprovider.TaskProviderImpl;
+import timeplaner.gui.docs.provider.implprovider.PlanProvider;
 //import timeplaner.dao.TODELETE.LocalSession;
 
 import java.util.logging.Logger;
@@ -26,12 +26,12 @@ public class Main extends Application {
         generalScene = new Scene(menuPanel.getHigherPanel(),725, 400);
         setFactories();
 
-        PlanProviderImpl planProvider = new PlanProviderImpl(session);
-        TaskProviderImpl taskProvider = new TaskProviderImpl(session);
+        PlanProvider planProvider = new PlanProvider(session);
+        TaskProvider taskProvider = new TaskProvider(session);
         taskProvider.getNode().setVisible(false);
         taskProvider.getNode().managedProperty().bind(taskProvider.getNode().visibleProperty());
 
-        ((Pane)(generalScene.getRoot())).getChildren().addAll(planProvider.getPlanParentImpl(), taskProvider.getNode());
+        ((Pane)(generalScene.getRoot())).getChildren().addAll(planProvider.getNode(), taskProvider.getNode());
 
         primaryStage.setScene(generalScene);
         primaryStage.show();

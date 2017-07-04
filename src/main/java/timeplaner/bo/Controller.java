@@ -1,13 +1,16 @@
 package timeplaner.bo;
 
+import timeplaner.dao.DocumentDao;
 import timeplaner.entities.DocumentModel;
 
-public interface Controller {
+import java.util.List;
 
-    DocumentModel getDocumentById();
-    void saveDocument(DocumentModel documentModel);
-    void deleteDocument();
-    void updateDocument();
-    void getAllDocuments();
+public interface Controller<V extends DocumentModel> {
+
+    V getDocument(V document);
+    V createDocument(V document);
+    void deleteDocument(V document);
+    void updateDocument(V document);
+    List<V> allDocuments();
 
 }

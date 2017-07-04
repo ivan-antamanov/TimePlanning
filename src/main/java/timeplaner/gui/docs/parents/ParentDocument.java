@@ -1,17 +1,15 @@
 package timeplaner.gui.docs.parents;
 
 
-import javafx.scene.Parent;
 import timeplaner.entities.DocumentModel;
 
-public interface ParentDocument {
+public interface ParentDocument<T extends DocumentModel, V extends AbstractDocParent> {
 
     public void showSuccessDialog(); //todo put to Utils
 
-    public Parent updateDocParent(DocumentModel documentModel);
+    public V updateDocParent(T documentModel);
 
-    public Parent getDocParent();
+    public V getDocParent();
 
     
-
 }

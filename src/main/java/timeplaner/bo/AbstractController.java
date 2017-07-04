@@ -1,8 +1,11 @@
 package timeplaner.bo;
 
 
-public abstract class AbstractController implements Controller {
+import timeplaner.dao.DocumentDao;
+import timeplaner.entities.DocumentModel;
 
+public abstract class AbstractController<T extends DocumentDao, V extends DocumentModel> implements Controller<V> {
 
+    protected T dao;
 
 }
