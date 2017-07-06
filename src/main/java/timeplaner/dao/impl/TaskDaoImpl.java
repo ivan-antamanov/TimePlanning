@@ -3,38 +3,38 @@ package timeplaner.dao.impl;
 
 import timeplaner.dao.AbstractSessionFactory;
 import timeplaner.dao.SessionFactory;
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.TaskDocument;
 
 import java.util.List;
 
-public class TaskDaoImpl extends AbstractSessionFactory<Task> {
+public class TaskDaoImpl extends AbstractSessionFactory<TaskDocument> {
 
     public TaskDaoImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
     }
 
     @Override
-    public Task create(Task document) {
+    public TaskDocument create(TaskDocument document) {
         return null;
     }
 
     @Override
-    public Task read(Task document) {
+    public TaskDocument read(TaskDocument document) {
         return null;
     }
 
     @Override
-    public Task update(Task document) {
+    public TaskDocument update(TaskDocument document) {
         return null;
     }
 
     @Override
-    public Task delete(Task document) {
+    public TaskDocument delete(TaskDocument document) {
         return null;
     }
 
     @Override
-    public List<Task> findAll() {
+    public List<TaskDocument> findAll() {
         return null;
     }
 }

@@ -1,16 +1,11 @@
 package timeplaner.gui.docs.skeletons.impl;
 
 
-import javafx.event.EventHandler;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
-import timeplaner.entities.maindocuments.impl.Plan;
+import timeplaner.entities.PersonDocument;
 import timeplaner.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.docs.skeletons.AbstractSkeleton;
-import timeplaner.gui.events.EventProcessor;
-import timeplaner.gui.events.events.taskevents.CreateTaskEvent;
-import timeplaner.gui.events.events.taskevents.LoadDocumentEvent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -18,52 +13,68 @@ import java.util.List;
 import java.util.Map;
 
 import static timeplaner.gui.utils.LabelFields.*;
+import static timeplaner.gui.utils.LabelFields.TASK_LIST;
 
-public class PlanSkeleton extends AbstractSkeleton<PlanSkeleton, Plan> {
+
+public class PersonSkeleton extends AbstractSkeleton<PersonSkeleton, PersonDocument> {
+
+    protected ChoiceBox<String> gender = new ChoiceBox<>();
+    protected TextField surname = new TextField();
+    protected TextField birthDate = new TextField();
 
     protected ListView<String> docList = new ListView<>();
     protected Button loadButton;
     protected Button createButton;
     protected Button deleteButton;
 
-    private Hyperlink mainDocument = new Hyperlink();
-    private TextField taskIdText = new TextField("0");
-
-    public PlanSkeleton() {
-        super();
-    }
-
     @Override
     protected void registrationEvents() {
-        createButton = new Button("Create TaskDocument");
-        loadButton = new Button("Edit task");
-        deleteButton = new Button("Delete TaskDocument");
-        createButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> EventProcessor.send(new CreateTaskEvent()));
-        loadButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
-                EventProcessor.send(new LoadDocumentEvent(Long.valueOf(taskIdText.getText()))));
+        gender.getItems().addAll(PersonDocument.Gender.getAllGenders());
+        createButton = new Button("Create Plan");
+        loadButton = new Button("Edit Plan");
+        deleteButton = new Button("Delete Plan");
+
+        //todo button event
+
     }
 
     @Override
-    public PlanSkeleton newSkeleton(Plan documentModel) {
-        return new PlanSkeleton();
+    public PersonSkeleton newSkeleton(PersonDocument personDocument) {
+        name.clear();
+        surname.clear();
+        description.clear();
+        creationDate.setText(personDocument.getCreateDate().toString());
+        id.setText(String.valueOf(personDocument.getId()));
+        birthDate.clear();
+        return this;
     }
 
     @Override
-    public PlanSkeleton updateSkeleton(Plan documentModel) {
-        throw new UnsupportedOperationException("Functionality Update documentModel not Implemented yet");
+    public PersonSkeleton updateSkeleton(PersonDocument personDocument) {
+        name.setText(personDocument.getName());
+        surname.setText(personDocument.getSurName());
+        gender.getSelectionModel().select(personDocument.getGender().getString());
+        description.setText(personDocument.getDescription());
+        creationDate.setText(personDocument.getCreateDate().toString());
+        id.setText(String.valueOf(personDocument.getId()));
+        return this;
     }
 
     @Override
-    public Plan getDocument() {//todo extend implementation;
-        Plan plan = new Plan(name.getText(), description.getText());
-
-        return plan;
+    public PersonDocument getDocument() {
+        PersonDocument personDocument = new PersonDocument(name.getText(), description.getText());
+        personDocument.setGender(PersonDocument.Gender.getGender(gender.getValue()));
+        personDocument.setDescription(description.getText());
+        personDocument.setSurName(surname.getText());
+        return personDocument;
     }
 
     public Map<Text, Control> getThisDocInfoMap(){ //todo think how to rebuild these methods
         Map<Text, Control> planInfoMap = new LinkedHashMap<>();
         planInfoMap.putIfAbsent(NAME_LABEL.getTextLabel(), name);
-        planInfoMap.putIfAbsent(MAIN_DOC_LABEL.getTextLabel(), mainDocument);
+        planInfoMap.putIfAbsent(SURNAME.getTextLabel(), surname);
+        planInfoMap.putIfAbsent(BIRTHDAY.getTextLabel(), birthDate);
+        planInfoMap.putIfAbsent(GENDER.getTextLabel(), gender);
 //        planInfoMap.putIfAbsent(DESCRIPTION_LABEL.getTextLabel(), description);
         return planInfoMap;
     }
@@ -108,18 +119,6 @@ public class PlanSkeleton extends AbstractSkeleton<PlanSkeleton, Plan> {
         controls.add(loadButton);
         controls.add(deleteButton);
         return controls;
-    }
-
-    public void setCreateTaskEventHandler(EventHandler eventCreateTask) {
-        createButton.addEventHandler(MouseEvent.MOUSE_CLICKED, eventCreateTask);
-    }
-
-    public void setLoadTaskEventHandler(EventHandler eventLoadTask) {
-        loadButton.addEventHandler(MouseEvent.MOUSE_CLICKED, eventLoadTask);
-    }
-
-    public TextField getTaskIdText() {
-        return taskIdText;
     }
 
 }

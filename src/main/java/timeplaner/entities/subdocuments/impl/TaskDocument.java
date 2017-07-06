@@ -3,17 +3,17 @@ package timeplaner.entities.subdocuments.impl;
 import timeplaner.entities.subdocuments.AbstractAction;
 
 
-public class Task extends AbstractAction {
+public class TaskDocument extends AbstractAction {
 
-    public Task() {
+    public TaskDocument() {
         super();
     }
 
-    public Task(Long id) {
+    public TaskDocument(Long id) {
         super(id);
     }
 
-    public Task(String name, String description) {
+    public TaskDocument(String name, String description) {
         super(name, description);
     }
 

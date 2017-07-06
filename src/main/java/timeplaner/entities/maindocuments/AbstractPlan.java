@@ -1,5 +1,6 @@
 package timeplaner.entities.maindocuments;
 
+import timeplaner.entities.subdocuments.AbstractSubDocument;
 import timeplaner.entities.subdocuments.impl.Aim;
 
 import java.util.List;
@@ -8,6 +9,10 @@ import java.util.List;
 public abstract class AbstractPlan extends AbstractMainDocument {
     private Aim aim;
     private List<Aim> aims;
+
+    public AbstractPlan(String name, String description) {
+        super(name, description);
+    }
 
     public Aim getAim() {
         return aim;

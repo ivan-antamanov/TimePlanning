@@ -68,7 +68,7 @@ public class ParentUtils {
         }
 
         if (isBlank.test(document.getName())) {
-            taskNameHypLink.setText("No Task Name");
+            taskNameHypLink.setText("No TaskDocument Name");
         } else {
             taskNameHypLink.setText(document.getName());
         }
@@ -77,10 +77,10 @@ public class ParentUtils {
     }
 
 
-    public static  <S extends StubDocument> Pane getTopPane(S document , Button backButton) {
+    public static  <S extends StubDocument> Pane getTopPane(S document , Button backButton) { //todo rebuild
         List<Hyperlink> hyperLinkTop = getHyperLinkTop(document);
         FlowPane topPane = (FlowPane) returnHyperLinkTopPane();
-        topPane.getChildren().addAll(hyperLinkTop.get(0), RIGHT_SLASH.getTextLabel(), hyperLinkTop.get(1), backButton);
+        topPane.getChildren().addAll(backButton, hyperLinkTop.get(0), RIGHT_SLASH.getTextLabel(), hyperLinkTop.get(1));
         return topPane;
     }
 

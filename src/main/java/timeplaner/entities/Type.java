@@ -4,7 +4,7 @@ package timeplaner.entities;
 public enum Type {
 
     PROJECT("Plan", true),
-    TASK("Task", false),
+    TASK("TaskDocument", false),
 
 
     ;

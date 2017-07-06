@@ -12,10 +12,14 @@ public enum LabelFields {
     DESCRIPTION_LABEL("Description:"),
     CREATION_DATE_LABEL("Creation Date:"),
     PERIOD_LABEL("Period:"),
-    LINKED_TASK_LABEL("Linked Task:"),
+    LINKED_TASK_LABEL("Linked TaskDocument:"),
     MAIN_DOC_LABEL("Main DocumentModel:"),
     ID_LABEL("ID:"),
-    TASK_LIST("List of Task"),
+    TASK_LIST("List of TaskDocument"),
+    SURNAME("Surname"),
+    GENDER("Gender"),
+    BIRTHDAY("Birthday"),
+
     ;
 
     private String name;

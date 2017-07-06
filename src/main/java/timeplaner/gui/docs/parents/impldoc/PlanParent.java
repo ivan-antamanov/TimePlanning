@@ -3,13 +3,10 @@ package timeplaner.gui.docs.parents.impldoc;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Control;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import timeplaner.entities.maindocuments.impl.Plan;
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.docs.parents.AbstractDocParent;
 import timeplaner.gui.docs.skeletons.impl.PlanSkeleton;
 import timeplaner.gui.utils.BorderUtils;
@@ -28,25 +25,35 @@ public class PlanParent extends AbstractDocParent<Plan, PlanSkeleton, PlanParent
 
     @Override
     protected Pane getGeneralPane() {
-        return null;
+        BorderPane generalPane = new BorderPane();
+        generalPane.setBorder(BorderUtils.getOtherTaskBorder());
+
+        Pane topPane = ParentUtils.getTopPane(skeleton.getDocument(), skeleton.getBackButton());
+
+        VBox leftInfoPane = new VBox();
+        leftInfoPane.getChildren().addAll(getPlanInfoParent(), getTaskInfoParent(new TaskDocument()));
+
+        VBox centerPane = new VBox();
+        centerPane.getChildren().addAll(getTaskList(skeleton.getTaskList()));
+        skeleton.updateTaskList(Arrays.asList("First task", "Second TaskDocument")); //FIXME should be real tasks
+        HBox bottomPane = new HBox();
+        bottomPane.getChildren().addAll(returnButtonPlanParent(skeleton.getButtonBottom()));
+
+        generalPane.setPrefWidth(400);
+        centerPane.setMaxHeight(250);
+        generalPane.autosize();
+
+        generalPane.setTop(topPane);
+        generalPane.setLeft(leftInfoPane);
+        generalPane.setCenter(centerPane);
+        generalPane.setBottom(bottomPane);
+        return generalPane;
     }
 
     @Override
     public PlanParent getDocParent() {
         if(this.getChildren().isEmpty()) {
-            VBox left = new VBox();
-            left.getChildren().addAll(getPlanInfoParent(), getTaskInfoParent(new Task())); //todo rebuild
-
-            VBox right = new VBox();
-            right.getChildren().addAll(getTaskList(skeleton.getTaskList()), returnButtonPlanParent(skeleton.getButtonBottom()));
-            skeleton.updateTaskList(Arrays.asList("First task", "Second Task"));
-            HBox all = new HBox();
-            all.getChildren().addAll(left, right);
-            all.setAlignment(Pos.CENTER);
-//        all.setMinSize(700, 1700); //all.setMinSize(700, 400);
-
-//        all.setMaxSize(820, 1820);
-            this.getChildren().addAll(all);
+            this.getChildren().addAll(getGeneralPane());
         }
         return this;
 
@@ -56,8 +63,8 @@ public class PlanParent extends AbstractDocParent<Plan, PlanSkeleton, PlanParent
         return ParentUtils.getInfoPane(skeleton.getThisDocInfoMap(), skeleton.getThisDocInfoConstantMap());
     }
 
-    public Pane getTaskInfoParent(Task task) {
-        return ParentUtils.getInfoPane(skeleton.getChildDocInfoMap(task), skeleton.getChildDocInfoConstantMap(task));
+    public Pane getTaskInfoParent(TaskDocument taskDocument) {
+        return ParentUtils.getInfoPane(skeleton.getChildDocInfoMap(taskDocument), skeleton.getChildDocInfoConstantMap(taskDocument));
     }
 
     public Pane getTaskList(Map<Text, Control> tasksInfoMap) {
@@ -80,6 +87,7 @@ public class PlanParent extends AbstractDocParent<Plan, PlanSkeleton, PlanParent
 
     public FlowPane returnButtonPlanParent(List<Control> controls) {
         FlowPane buttonPane = (FlowPane) customizeButtonsPane();
+        buttonPane.setBorder(BorderUtils.getOtherTaskBorder());
         controls.forEach(control -> buttonPane.getChildren().add(control));
         return buttonPane;
     }

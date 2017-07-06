@@ -11,6 +11,11 @@ public abstract class AbstractMainDocument extends StubDocument {
         super();
     }
 
+    public AbstractMainDocument(String name, String description) {
+        super(name, description);
+        this.subDocument = subDocument;
+    }
+
     public AbstractSubDocument getSubDocument() {
         return subDocument;
     }

@@ -1,7 +1,7 @@
 package drafts.common;
 
 
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.TaskDocument;
 import javafx.application.Application;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 public class TaskDraft extends Application {
 
-    private Task document;
+    private TaskDocument document;
 
 
     public void start(Stage primaryStage) throws Exception {
@@ -27,11 +27,11 @@ public class TaskDraft extends Application {
         primaryStage.show();
     }
 
-    private Task getTask(){
-        Task task = new Task();
-        task.setName("Implement GUI part");
-        task.setDescription("Need to implement uml-class diagram for GUI and starting code implementation");
-        return task;
+    private TaskDocument getTask(){
+        TaskDocument taskDocument = new TaskDocument();
+        taskDocument.setName("Implement GUI part");
+        taskDocument.setDescription("Need to implement uml-class diagram for GUI and starting code implementation");
+        return taskDocument;
     }
 
     private Scene convertDocumentToNode() {
@@ -69,11 +69,11 @@ public class TaskDraft extends Application {
     }
 
 
-    public Task getDocument() {
+    public TaskDocument getDocument() {
         return document;
     }
 
-    public void setDocument(Task document) {
+    public void setDocument(TaskDocument document) {
         this.document = document;
     }
 

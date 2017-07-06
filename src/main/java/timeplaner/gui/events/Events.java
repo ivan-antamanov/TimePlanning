@@ -9,9 +9,9 @@ public class Events {
 //            Object button = event.getSource();
 //            if (event.getSource().getClass().equals(Button.class)) {
 //
-//                System.out.println("Try to save Task with Id: " + taskId.getText());
+//                System.out.println("Try to save TaskDocument with Id: " + taskId.getText());
 //                TaskController taskController = new TaskController();
-//                Task task = getTaskFromNode();
+//                TaskDocument task = getTaskFromNode();
 //                taskController.saveTask(task);
 //                showSuccessDialog();
 //            }

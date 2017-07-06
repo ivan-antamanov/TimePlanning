@@ -8,7 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.docs.parents.AbstractDocParent;
 import timeplaner.gui.docs.skeletons.impl.TaskSkeleton;
 import timeplaner.gui.utils.BorderUtils;
@@ -17,7 +17,7 @@ import timeplaner.gui.utils.ParentUtils;
 import java.util.List;
 import java.util.Map;
 
-public class TaskParent extends AbstractDocParent<Task, TaskSkeleton, TaskParent> {
+public class TaskParent extends AbstractDocParent<TaskDocument, TaskSkeleton, TaskParent> {
 
     public TaskParent(TaskSkeleton skeleton) {
         super(skeleton);
@@ -26,7 +26,7 @@ public class TaskParent extends AbstractDocParent<Task, TaskSkeleton, TaskParent
     @Override
     protected Pane getGeneralPane() {
         VBox mainPane = (VBox) customizeTaskPane();
-        mainPane.getChildren().add(getMainBorderPanePane());
+        mainPane.getChildren().add(getMainBorderPane());
         mainPane.getChildren().add(getButtonBottom(skeleton.getButtonsBottom()));
         return mainPane;
     }
@@ -42,8 +42,8 @@ public class TaskParent extends AbstractDocParent<Task, TaskSkeleton, TaskParent
     }
 
     @Override
-    public TaskParent updateDocParent(Task task) {
-        skeleton.updateSkeleton(task);
+    public TaskParent updateDocParent(TaskDocument taskDocument) {
+        skeleton.updateSkeleton(taskDocument);
         this.getChildren().clear();
         this.getChildren().addAll(getDocParent());
         return this;
@@ -54,7 +54,7 @@ public class TaskParent extends AbstractDocParent<Task, TaskSkeleton, TaskParent
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
-        alert.setContentText("I have a great message for you: Task was successfully created!");
+        alert.setContentText("I have a great message for you: TaskDocument was successfully created!");
         alert.showAndWait();
     }
 
@@ -63,7 +63,7 @@ public class TaskParent extends AbstractDocParent<Task, TaskSkeleton, TaskParent
         return mainPane;
     }
 
-    protected Pane getMainBorderPanePane() {
+    protected Pane getMainBorderPane() {
         BorderPane generalPane = new BorderPane();
 
         generalPane.setBorder(BorderUtils.getOtherTaskBorder());

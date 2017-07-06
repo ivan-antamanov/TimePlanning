@@ -2,7 +2,6 @@ package timeplaner.gui.events.events.taskevents;
 
 
 import timeplaner.entities.DocumentModel;
-import timeplaner.entities.subdocuments.impl.Task;
 import timeplaner.gui.events.events.ProjectEvent;
 
 public class LoadDocumentEvent<T extends DocumentModel> implements ProjectEvent {

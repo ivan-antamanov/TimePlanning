@@ -6,7 +6,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import timeplaner.entities.auxiliary.Priority;
 import timeplaner.entities.auxiliary.Status;
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.SceneFactory;
 import timeplaner.gui.docs.parents.impldoc.PlanParent;
 import timeplaner.gui.docs.skeletons.AbstractSkeleton;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 import static timeplaner.gui.utils.LabelFields.*;
 
-public class TaskSkeleton extends AbstractSkeleton<TaskSkeleton, Task> {
+public class TaskSkeleton extends AbstractSkeleton<TaskSkeleton, TaskDocument> {
 
 protected TextField mainDocument = new TextField(); //todo take out instantiating
     protected ChoiceBox<String> priorityChoiceBox = new ChoiceBox<>();
@@ -40,7 +40,7 @@ protected TextField mainDocument = new TextField(); //todo take out instantiatin
         statusChoiceBox = new ChoiceBox<>();
         priorityChoiceBox.getItems().addAll(Priority.getAllNames());
         statusChoiceBox.getItems().addAll(Status.getAllNames());
-        saveButton = new Button("Save Task");
+        saveButton = new Button("Save TaskDocument");
         saveButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             EventProcessor.send(new SaveTaskEvent());
         });
@@ -49,35 +49,35 @@ protected TextField mainDocument = new TextField(); //todo take out instantiatin
     }
 
     @Override
-    public TaskSkeleton newSkeleton(Task task) {
+    public TaskSkeleton newSkeleton(TaskDocument taskDocument) {
         name.clear();
 //        priorityChoiceBox.getSelectionModel().select(action.getPriority().getName());
 //        statusChoiceBox.getSelectionModel().select(action.getStatus().getName());
         description.clear();
-        creationDate.setText(task.getCreateDate().toString());
-        id.setText(String.valueOf(task.getId()));
+        creationDate.setText(taskDocument.getCreateDate().toString());
+        id.setText(String.valueOf(taskDocument.getId()));
         return this;
     }
 
     @Override
-    public TaskSkeleton updateSkeleton(Task task) {//fixme: not create new object
-        name = new TextField(task.getName());
-        priorityChoiceBox.getSelectionModel().select(  task.getPriority().getName());
-        statusChoiceBox.getSelectionModel().select(task.getStatus().getName());
-        description = new TextArea(task.getDescription());
-        creationDate.setText(task.getCreateDate().toString());
-        id.setText(task.getId().toString());
+    public TaskSkeleton updateSkeleton(TaskDocument taskDocument) {//fixme: not create new object
+        name = new TextField(taskDocument.getName());
+        priorityChoiceBox.getSelectionModel().select(  taskDocument.getPriority().getName());
+        statusChoiceBox.getSelectionModel().select(taskDocument.getStatus().getName());
+        description = new TextArea(taskDocument.getDescription());
+        creationDate.setText(taskDocument.getCreateDate().toString());
+        id.setText(taskDocument.getId().toString());
         return this;
     }
 
     @Override
-    public Task getDocument() {
-        Task task = new Task(name.getText(), description.getText());
+    public TaskDocument getDocument() {
+        TaskDocument taskDocument = new TaskDocument(name.getText(), description.getText());
         Priority priority = Priority.getByName(priorityChoiceBox.getValue());
         Status status = Status.getByName(statusChoiceBox.getValue());
-        task.setPriority(priority);
-        task.setStatus(status);
-        return task;
+        taskDocument.setPriority(priority);
+        taskDocument.setStatus(status);
+        return taskDocument;
     }
 
     public Map<Text, Control> getLabelAndControlMapLeft() {

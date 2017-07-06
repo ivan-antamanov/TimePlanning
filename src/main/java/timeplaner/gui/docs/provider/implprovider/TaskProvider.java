@@ -3,7 +3,7 @@ package timeplaner.gui.docs.provider.implprovider;
 import javafx.scene.Parent;
 import timeplaner.bo.impl.TaskController;
 import timeplaner.dao.SessionFactory;
-import timeplaner.entities.subdocuments.impl.Task;
+import timeplaner.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.SceneFactory;
 import timeplaner.gui.docs.parents.impldoc.PlanParent;
 import timeplaner.gui.docs.parents.impldoc.TaskParent;
@@ -20,7 +20,7 @@ import timeplaner.gui.events.handlers.SceneHandlersFactory;
 import java.util.logging.Logger;
 
 
-public class TaskProvider extends AbstractProvider<TaskController, TaskParent, Task> {
+public class TaskProvider extends AbstractProvider<TaskController, TaskParent, TaskDocument> {
 
     private Logger logger = Logger.getLogger(TaskProvider.class.getName());
 
@@ -36,8 +36,8 @@ public class TaskProvider extends AbstractProvider<TaskController, TaskParent, T
     }
 
     @Override
-    public TaskParent updateNode(Task task) {
-        return parent.updateDocParent(task);
+    public TaskParent updateNode(TaskDocument taskDocument) {
+        return parent.updateDocParent(taskDocument);
     }
 
     @Override
@@ -61,45 +61,33 @@ public class TaskProvider extends AbstractProvider<TaskController, TaskParent, T
     }
 
 
-    private ProjectEventHandler<SaveTaskEvent> saveTaskHandler = new ProjectEventHandler<SaveTaskEvent>() {
-        @Override
-        public void handle(SaveTaskEvent event) {
-            Task task = (Task) parent.getDocument();
-            logger.info("Try to save Task with Id: " + task.getId());
-            controller.createDocument(task);
-            parent.showSuccessDialog();
-        }
+    private ProjectEventHandler<SaveTaskEvent> saveTaskHandler = event -> {
+        TaskDocument taskDocument =  parent.getDocument();
+        logger.info("Try to save TaskDocument with Id: " + taskDocument.getId());
+        controller.createDocument(taskDocument);
+        parent.showSuccessDialog();
     };
 
-    ProjectEventHandler<LoadDocumentEvent> loadTaskHandler = new ProjectEventHandler<LoadDocumentEvent>() {
-        @Override
-        public void handle(LoadDocumentEvent event) {
-            logger.info("Button \"Load Task\" was pressed"); //fixme
-            Task task = controller.getDocument((Task) event.getDocument()); //fixme: too long +addd validation for null and NumberFormatException
-            updateTaskNode(task);
-            EventProcessor.send(new ChangeChildrenVisibilityEvent(parent.getClass(), SceneFactory.INSTANCE.get()));
-        }
+    ProjectEventHandler<LoadDocumentEvent> loadTaskHandler = event -> {
+        logger.info("Button \"Load TaskDocument\" was pressed"); //fixme
+        TaskDocument taskDocument = controller.getDocument((TaskDocument) event.getDocument()); //fixme: too long +addd validation for null and NumberFormatException
+        updateTaskNode(taskDocument);
+        EventProcessor.send(new ChangeChildrenVisibilityEvent(parent.getClass(), SceneFactory.INSTANCE.get()));
     };
 
-    private ProjectEventHandler<CreateTaskEvent> createTaskEventHandler = new ProjectEventHandler<CreateTaskEvent>() {
-        @Override
-        public void handle(CreateTaskEvent event) {
-            logger.info("Button \"Create new Task\" was pressed");
-            newNode(); //fixme: too long +addd validation for null and NumberFormatException
-            EventProcessor.send(new ChangeChildrenVisibilityEvent(parent.getClass(), SceneFactory.INSTANCE.get()));
-        }
+    private ProjectEventHandler<CreateTaskEvent> createTaskEventHandler = event -> {
+        logger.info("Button \"Create new TaskDocument\" was pressed");
+        newNode(); //fixme: too long +addd validation for null and NumberFormatException
+        EventProcessor.send(new ChangeChildrenVisibilityEvent(parent.getClass(), SceneFactory.INSTANCE.get()));
     };
 
-    private ProjectEventHandler<ChangeChildrenVisibilityEvent> goBackEventHandler = new ProjectEventHandler<ChangeChildrenVisibilityEvent>() {
-        @Override
-        public void handle(ChangeChildrenVisibilityEvent event) {
-            logger.info("Button GoBack was pressed");
-            EventProcessor.send(new ChangeChildrenVisibilityEvent(PlanParent.class, SceneFactory.INSTANCE.get()));
-        }
+    private ProjectEventHandler<ChangeChildrenVisibilityEvent> goBackEventHandler = event -> {
+        logger.info("Button GoBack was pressed");
+        EventProcessor.send(new ChangeChildrenVisibilityEvent(PlanParent.class, SceneFactory.INSTANCE.get()));
     };
 
-    private Parent updateTaskNode(Task task) {
-        return parent.updateDocParent(task);
+    private Parent updateTaskNode(TaskDocument taskDocument) {
+        return parent.updateDocParent(taskDocument);
     }
 
 

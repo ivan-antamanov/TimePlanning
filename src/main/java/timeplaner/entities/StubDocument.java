@@ -8,7 +8,7 @@ import java.time.*;
 
 public class StubDocument implements DocumentModel, Serializable {
 
-    private String name;
+    protected String name;
     private String description;
     private LocalDate createDate;
     private Long id;
@@ -18,7 +18,7 @@ public class StubDocument implements DocumentModel, Serializable {
 //    private Report report todo Add Marker as report or make it as utils class
     private Boolean docWasChanged;
     private Period period;
-    private Person owner;
+    private PersonDocument owner;
     private AbstractMainDocument mainDocument;
     private Type type;
 
@@ -53,11 +53,11 @@ public class StubDocument implements DocumentModel, Serializable {
         this.type = type;
     }
 
-    public Person getOwner() {
+    public PersonDocument getOwner() {
         return owner;
     }
 
-    public void setOwner(Person owner) {
+    public void setOwner(PersonDocument owner) {
         this.owner = owner;
     }
 
