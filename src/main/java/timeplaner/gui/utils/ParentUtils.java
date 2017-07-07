@@ -11,10 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import org.apache.commons.lang.StringUtils;
-import timeplaner.entities.DocumentModel;
-import timeplaner.entities.StubDocument;
-import timeplaner.gui.docs.skeletons.Skeleton;
-import timeplaner.gui.docs.skeletons.impl.TaskSkeleton;
+import timeplaner.core.entities.StubDocument;
 
 import java.util.Arrays;
 import java.util.List;
@@ -62,7 +59,7 @@ public class ParentUtils {
         Hyperlink mainProjectHypLink = new Hyperlink();
         Hyperlink taskNameHypLink = new Hyperlink();
         if (Objects.isNull(document.getMainDocument()) || isBlank.test(document.getMainDocument().getName())) {
-            mainProjectHypLink.setText("No Main Plan");
+            mainProjectHypLink.setText("No Main PlanDocument");
         } else {
             mainProjectHypLink.setText(document.getMainDocument().getName());
         }

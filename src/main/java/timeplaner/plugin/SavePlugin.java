@@ -1,8 +1,8 @@
 package timeplaner.plugin;
 
 
-import timeplaner.dao.LocalSessionFactoryImpl;
-import timeplaner.entities.StubDocument;
+import timeplaner.plugin.dao.LocalSessionFactoryImpl;
+import timeplaner.core.entities.StubDocument;
 
 public abstract class SavePlugin implements Plugin {
 
