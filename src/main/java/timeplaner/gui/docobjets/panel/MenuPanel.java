@@ -1,4 +1,4 @@
-package timeplaner.gui.docoperators.panel;
+package timeplaner.gui.docobjets.panel;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.Menu;

@@ -1,10 +1,10 @@
-package timeplaner.gui.docoperators.task;
+package timeplaner.gui.docobjets.task;
 
 
 import timeplaner.core.AbstractController;
+import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 import timeplaner.plugin.dao.SessionFactory;
 import timeplaner.plugin.dao.impl.TaskDaoImpl;
-import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 
 import java.util.List;
 

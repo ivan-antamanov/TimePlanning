@@ -1,16 +1,16 @@
-package timeplaner.gui.docoperators.plan;
+package timeplaner.gui.docobjets.plan;
 
 
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import timeplaner.core.AbstractSkeleton;
 import timeplaner.core.entities.maindocuments.impl.PlanDocument;
 import timeplaner.core.entities.subdocuments.impl.TaskDocument;
-import timeplaner.core.AbstractSkeleton;
 import timeplaner.core.events.EventProcessor;
-import timeplaner.gui.docoperators.task.events.CreateTaskEvent;
 import timeplaner.core.events.LoadDocumentEvent;
+import timeplaner.gui.docobjets.task.events.CreateTaskEvent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

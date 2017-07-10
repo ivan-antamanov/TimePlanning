@@ -1,18 +1,19 @@
-import javafx.scene.Scene;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import timeplaner.plugin.dao.LocalSessionFactoryImpl;
 import timeplaner.core.events.SceneFactory;
-import timeplaner.gui.docoperators.panel.MenuPanel;
-import timeplaner.gui.docoperators.person.PersonProvider;
-import timeplaner.gui.docoperators.task.TaskProvider;
 import timeplaner.core.events.handlers.SceneHandlersFactory;
 import timeplaner.core.events.handlers.impl.SceneHandlersFactoryImpl;
-import timeplaner.gui.docoperators.plan.PlanProvider;
-//import timeplaner.plugin.dao.TODELETE.LocalSession;
+import timeplaner.gui.docobjets.panel.MenuPanel;
+import timeplaner.gui.docobjets.person.PersonProvider;
+import timeplaner.gui.docobjets.plan.PlanProvider;
+import timeplaner.gui.docobjets.task.TaskProvider;
+import timeplaner.plugin.dao.LocalSessionFactoryImpl;
 
 import java.util.logging.Logger;
+
+//import timeplaner.plugin.dao.TODELETE.LocalSession;
 
 public class Main extends Application {
 

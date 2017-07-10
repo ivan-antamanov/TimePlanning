@@ -1,4 +1,4 @@
-package timeplaner.gui.docoperators.plan;
+package timeplaner.gui.docobjets.plan;
 
 
 import timeplaner.core.AbstractController;

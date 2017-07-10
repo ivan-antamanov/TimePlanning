@@ -1,4 +1,4 @@
-package timeplaner.gui.docoperators.plan;
+package timeplaner.gui.docobjets.plan;
 
 
 import timeplaner.core.AbstractProvider;
@@ -7,7 +7,7 @@ import timeplaner.core.events.EventProcessor;
 import timeplaner.core.events.ProjectEventHandler;
 import timeplaner.core.events.SceneFactory;
 import timeplaner.core.events.events.sceneevents.ChangeChildrenVisibilityEvent;
-import timeplaner.gui.docoperators.plan.events.CreateProject;
+import timeplaner.gui.docobjets.plan.events.CreateProject;
 import timeplaner.plugin.dao.SessionFactory;
 
 import java.util.logging.Logger;

@@ -1,15 +1,14 @@
-package timeplaner.gui.docoperators.person;
+package timeplaner.gui.docobjets.person;
 
 
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import timeplaner.core.AbstractSkeleton;
 import timeplaner.core.entities.PersonDocument;
 import timeplaner.core.entities.subdocuments.impl.TaskDocument;
-import timeplaner.core.AbstractSkeleton;
 import timeplaner.core.events.EventProcessor;
-import timeplaner.core.events.events.sceneevents.ChangeChildrenVisibilityEvent;
-import timeplaner.gui.docoperators.plan.events.CreateProject;
+import timeplaner.gui.docobjets.plan.events.CreateProject;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -18,7 +17,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import static timeplaner.gui.utils.LabelFields.*;
-import static timeplaner.gui.utils.LabelFields.TASK_LIST;
 
 
 public class PersonSkeleton extends AbstractSkeleton<PersonSkeleton, PersonDocument> {

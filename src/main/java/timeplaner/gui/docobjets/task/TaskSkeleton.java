@@ -1,18 +1,18 @@
-package timeplaner.gui.docoperators.task;
+package timeplaner.gui.docobjets.task;
 
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
+import timeplaner.core.AbstractSkeleton;
 import timeplaner.core.entities.auxiliary.Priority;
 import timeplaner.core.entities.auxiliary.Status;
 import timeplaner.core.entities.subdocuments.impl.TaskDocument;
-import timeplaner.core.events.SceneFactory;
-import timeplaner.gui.docoperators.plan.PlanParent;
-import timeplaner.core.AbstractSkeleton;
 import timeplaner.core.events.EventProcessor;
+import timeplaner.core.events.SceneFactory;
 import timeplaner.core.events.events.sceneevents.ChangeChildrenVisibilityEvent;
-import timeplaner.gui.docoperators.task.events.SaveTaskEvent;
+import timeplaner.gui.docobjets.plan.PlanParent;
+import timeplaner.gui.docobjets.task.events.SaveTaskEvent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

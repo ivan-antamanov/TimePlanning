@@ -1,8 +1,8 @@
-package timeplaner.gui.docoperators.person;
+package timeplaner.gui.docobjets.person;
 
-import timeplaner.plugin.dao.SessionFactory;
-import timeplaner.core.entities.PersonDocument;
 import timeplaner.core.AbstractProvider;
+import timeplaner.core.entities.PersonDocument;
+import timeplaner.plugin.dao.SessionFactory;
 
 
 public class PersonProvider extends AbstractProvider<PersonController, PersonParent, PersonDocument> {

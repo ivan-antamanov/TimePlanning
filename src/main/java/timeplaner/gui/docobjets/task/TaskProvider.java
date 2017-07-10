@@ -1,18 +1,18 @@
-package timeplaner.gui.docoperators.task;
+package timeplaner.gui.docobjets.task;
 
 import javafx.scene.Parent;
-import timeplaner.plugin.dao.SessionFactory;
-import timeplaner.core.entities.subdocuments.impl.TaskDocument;
-import timeplaner.core.events.SceneFactory;
-import timeplaner.gui.docoperators.plan.PlanParent;
 import timeplaner.core.AbstractProvider;
+import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 import timeplaner.core.events.EventProcessor;
-import timeplaner.core.events.ProjectEventHandler;
-import timeplaner.core.events.events.sceneevents.ChangeChildrenVisibilityEvent;
-import timeplaner.gui.docoperators.task.events.CreateTaskEvent;
 import timeplaner.core.events.LoadDocumentEvent;
-import timeplaner.gui.docoperators.task.events.SaveTaskEvent;
+import timeplaner.core.events.ProjectEventHandler;
+import timeplaner.core.events.SceneFactory;
+import timeplaner.core.events.events.sceneevents.ChangeChildrenVisibilityEvent;
 import timeplaner.core.events.handlers.SceneHandlersFactory;
+import timeplaner.gui.docobjets.plan.PlanParent;
+import timeplaner.gui.docobjets.task.events.CreateTaskEvent;
+import timeplaner.gui.docobjets.task.events.SaveTaskEvent;
+import timeplaner.plugin.dao.SessionFactory;
 
 import java.util.logging.Logger;
 

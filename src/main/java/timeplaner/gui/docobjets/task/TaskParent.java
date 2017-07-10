@@ -1,4 +1,4 @@
-package timeplaner.gui.docoperators.task;
+package timeplaner.gui.docobjets.task;
 
 
 import javafx.geometry.Orientation;
@@ -8,8 +8,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 import timeplaner.core.AbstractDocParent;
+import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.utils.BorderUtils;
 import timeplaner.gui.utils.ParentUtils;
 

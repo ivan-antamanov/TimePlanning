@@ -1,24 +1,24 @@
-package timeplaner.gui.docoperators.plan;
+package timeplaner.gui.docobjets.person;
+
 
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.control.Control;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import timeplaner.core.entities.maindocuments.impl.PlanDocument;
-import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 import timeplaner.core.AbstractDocParent;
+import timeplaner.core.entities.PersonDocument;
+import timeplaner.core.entities.subdocuments.impl.TaskDocument;
 import timeplaner.gui.utils.BorderUtils;
 import timeplaner.gui.utils.ParentUtils;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+public class PersonParent extends AbstractDocParent<PersonDocument, PersonSkeleton, PersonParent> {
 
-public class PlanParent extends AbstractDocParent<PlanDocument, PlanSkeleton, PlanParent> {
 
-    public PlanParent(PlanSkeleton skeleton) {
+    public PersonParent(PersonSkeleton skeleton) {
         super(skeleton);
     }
 
@@ -33,10 +33,10 @@ public class PlanParent extends AbstractDocParent<PlanDocument, PlanSkeleton, Pl
         leftInfoPane.getChildren().addAll(getPlanInfoParent(), getTaskInfoParent(new TaskDocument()));
 
         VBox centerPane = new VBox();
-        centerPane.getChildren().addAll(getTaskList(skeleton.getTaskList()));
-        skeleton.updateTaskList(Arrays.asList("First task", "Second TaskDocument")); //FIXME should be real tasks
+        centerPane.getChildren().addAll(getPlanList(skeleton.getTaskList()));
+//        skeleton.updateTaskList(Arrays.asList("First task", "Second TaskDocument")); //FIXME should be real plans
         HBox bottomPane = new HBox();
-        bottomPane.getChildren().addAll(returnButtonPlanParent(skeleton.getButtonBottom()));
+        bottomPane.getChildren().addAll(skeleton.getButtonBottom()); //FIXME flow
 
         generalPane.setPrefWidth(400);
         centerPane.setMaxHeight(250);
@@ -50,7 +50,7 @@ public class PlanParent extends AbstractDocParent<PlanDocument, PlanSkeleton, Pl
     }
 
     @Override
-    public PlanParent getDocParent() {
+    public PersonParent getDocParent() {
         if(this.getChildren().isEmpty()) {
             this.getChildren().addAll(getGeneralPane());
         }
@@ -66,10 +66,10 @@ public class PlanParent extends AbstractDocParent<PlanDocument, PlanSkeleton, Pl
         return ParentUtils.getInfoPane(skeleton.getChildDocInfoMap(taskDocument), skeleton.getChildDocInfoConstantMap(taskDocument));
     }
 
-    public Pane getTaskList(Map<Text, Control> tasksInfoMap) {
-        FlowPane tasksPane = customizeAndCreateListPane();
-        tasksInfoMap.forEach(((text, control) -> tasksPane.getChildren().addAll(text, control)));
-        return tasksPane;
+    public Pane getPlanList(Map<Text, Control> planInfoMap) {
+        FlowPane plansPane = customizeAndCreateListPane();
+        planInfoMap.forEach(((text, control) -> plansPane.getChildren().addAll(text, control)));
+        return plansPane;
     }
 
     private FlowPane customizeAndCreateListPane() {
@@ -93,18 +93,22 @@ public class PlanParent extends AbstractDocParent<PlanDocument, PlanSkeleton, Pl
 
     private Pane customizeButtonsPane() {
         FlowPane startPane = new FlowPane();
-
         return startPane;
+    }
+
+    public void updateCatalog(List<String> catalog){
+        skeleton.updateTaskList(catalog);
     }
 
     @Override
     public void showSuccessDialog() {
-        throw new UnsupportedOperationException("Operation updateNode not supported yet");
+
     }
 
     @Override
-    public PlanParent updateDocParent(PlanDocument planDocument) {
+    public PersonParent updateDocParent(PersonDocument documentModel) {
         return null;
     }
+
 
 }

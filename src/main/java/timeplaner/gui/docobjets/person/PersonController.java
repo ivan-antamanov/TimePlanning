@@ -1,9 +1,9 @@
-package timeplaner.gui.docoperators.person;
+package timeplaner.gui.docobjets.person;
 
 import timeplaner.core.AbstractController;
+import timeplaner.core.entities.PersonDocument;
 import timeplaner.plugin.dao.SessionFactory;
 import timeplaner.plugin.dao.impl.PersonDaoImpl;
-import timeplaner.core.entities.PersonDocument;
 
 import java.util.List;
 

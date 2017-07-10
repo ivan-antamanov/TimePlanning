@@ -1,4 +1,4 @@
-package timeplaner.gui.docoperators.plan.events;
+package timeplaner.gui.docobjets.plan.events;
 
 import timeplaner.core.events.events.ProjectEvent;
 
